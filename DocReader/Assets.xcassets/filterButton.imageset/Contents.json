@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "captureButton.png",
+      "filename" : "filterButton.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "captureButton@2x.png",
+      "filename" : "filterButton@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "captureButton@3x.png",
+      "filename" : "filterButton@3x.png",
       "scale" : "3x"
     }
   ],

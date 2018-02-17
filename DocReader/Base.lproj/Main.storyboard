@@ -13,7 +13,7 @@
         <!--Camera View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="CameraViewController" customModule="DocReader" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CameraViewController" id="BYZ-38-t0r" customClass="CameraViewController" customModule="DocReader" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -25,7 +25,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QVV-Bk-5Y5" userLabel="containerView">
                                 <rect key="frame" x="0.0" y="503" width="375" height="100"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aeO-um-7Ny">
+                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aeO-um-7Ny">
                                         <rect key="frame" x="15" y="24" width="50" height="50"/>
                                         <color key="backgroundColor" red="0.12502530217170715" green="0.1785120964050293" blue="0.47024446725845337" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -98,17 +98,37 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="AhT-SV-TIU">
-                        <barButtonItem key="rightBarButtonItem" title="Proceed" id="noK-jK-5CW"/>
+                        <barButtonItem key="rightBarButtonItem" title="Proceed" id="noK-jK-5CW">
+                            <connections>
+                                <action selector="proceedButtonTapped:" destination="BYZ-38-t0r" id="lyW-RL-UFD"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="multiPagesButton" destination="DwM-fs-l4T" id="H0n-7g-jwg"/>
                         <outlet property="photosImageView" destination="aeO-um-7Ny" id="a3I-VB-CAd"/>
                         <outlet property="scannerView" destination="YtM-JN-j4s" id="SqQ-SM-rtH"/>
+                        <segue destination="SEN-Mp-mPh" kind="show" identifier="ShowEditVC" id="tn9-9z-I8O"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="498.39999999999998" y="131.78410794602701"/>
+        </scene>
+        <!--Edit Scan View Controller-->
+        <scene sceneID="Pez-Wz-ff3">
+            <objects>
+                <viewController id="SEN-Mp-mPh" customClass="EditScanViewController" customModule="DocReader" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ZCb-VJ-Epn">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <viewLayoutGuide key="safeArea" id="rsq-Pt-dwU"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gHh-e7-mKv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1329" y="132"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Id8-70-Y7E">

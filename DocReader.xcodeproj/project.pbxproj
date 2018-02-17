@@ -17,6 +17,10 @@
 		440701152037EBE30027E231 /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440701142037EBE30027E231 /* ScannerView.swift */; };
 		440701172037EF840027E231 /* CameraViewController+Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440701162037EF840027E231 /* CameraViewController+Delegates.swift */; };
 		440701192037F3C60027E231 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440701182037F3C60027E231 /* Extensions.swift */; };
+		4407011C20380A720027E231 /* CameraViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4407011B20380A720027E231 /* CameraViewControllerTests.swift */; };
+		4407011E20380CFD0027E231 /* EditScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4407011D20380CFD0027E231 /* EditScanViewController.swift */; };
+		44070120203810FB0027E231 /* EditImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4407011F203810FB0027E231 /* EditImageCell.swift */; };
+		44070122203896AA0027E231 /* EditingToolsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44070121203896AA0027E231 /* EditingToolsCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +57,10 @@
 		440701142037EBE30027E231 /* ScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
 		440701162037EF840027E231 /* CameraViewController+Delegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CameraViewController+Delegates.swift"; sourceTree = "<group>"; };
 		440701182037F3C60027E231 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		4407011B20380A720027E231 /* CameraViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewControllerTests.swift; sourceTree = "<group>"; };
+		4407011D20380CFD0027E231 /* EditScanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditScanViewController.swift; sourceTree = "<group>"; };
+		4407011F203810FB0027E231 /* EditImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImageCell.swift; sourceTree = "<group>"; };
+		44070121203896AA0027E231 /* EditingToolsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingToolsCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				440700F52037E9040027E231 /* DocReaderTests.swift */,
+				4407011B20380A720027E231 /* CameraViewControllerTests.swift */,
 				440700F72037E9040027E231 /* Info.plist */,
 			);
 			path = DocReaderTests;
@@ -138,6 +147,9 @@
 			children = (
 				440701112037E9A10027E231 /* CameraViewController.swift */,
 				440701162037EF840027E231 /* CameraViewController+Delegates.swift */,
+				4407011D20380CFD0027E231 /* EditScanViewController.swift */,
+				4407011F203810FB0027E231 /* EditImageCell.swift */,
+				44070121203896AA0027E231 /* EditingToolsCell.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -284,11 +296,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44070120203810FB0027E231 /* EditImageCell.swift in Sources */,
 				440701192037F3C60027E231 /* Extensions.swift in Sources */,
 				440701172037EF840027E231 /* CameraViewController+Delegates.swift in Sources */,
 				440701152037EBE30027E231 /* ScannerView.swift in Sources */,
 				440700E12037E9040027E231 /* AppDelegate.swift in Sources */,
 				440701122037E9A10027E231 /* CameraViewController.swift in Sources */,
+				44070122203896AA0027E231 /* EditingToolsCell.swift in Sources */,
+				4407011E20380CFD0027E231 /* EditScanViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,6 +312,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				440700F62037E9040027E231 /* DocReaderTests.swift in Sources */,
+				4407011C20380A720027E231 /* CameraViewControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

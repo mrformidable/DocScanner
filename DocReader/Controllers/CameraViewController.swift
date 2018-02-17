@@ -16,12 +16,7 @@ class CameraViewController: UIViewController {
     
     @IBOutlet weak var multiPagesButton: UIButton!
     
-    @IBOutlet weak var photosImageView: UIImageView! {
-        didSet {
-            photosImageView.layer.cornerRadius = 10
-            photosImageView.layer.masksToBounds = true
-        }
-    }
+    @IBOutlet weak var photosImageView: UIImageView!
     
     // MARK: Session Management
     
@@ -58,7 +53,7 @@ class CameraViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         //fetchPhotos()
-        
+        setupPhotosButton()
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .authorized:
             // The user has previously granted access to the camera.
@@ -100,7 +95,6 @@ class CameraViewController: UIViewController {
         }
     }
     
-    
     private var borderDetectTimeKeeper: Timer?
     
     private func start() {
@@ -134,6 +128,17 @@ class CameraViewController: UIViewController {
                 return
             }
         })
+    }
+    
+    private func setupPhotosButton() {
+        photosImageView.layer.cornerRadius = 10
+        photosImageView.layer.masksToBounds = true
+        photosImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapPhotosButton)))
+    }
+    
+    @objc
+    private func didTapPhotosButton() {
+        print("should show photos here...")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -288,6 +293,9 @@ class CameraViewController: UIViewController {
             }
             self.photoOutput.capturePhoto(with: photoSettings, delegate: self)
         }
+    }
+    @IBAction func proceedButtonTapped(_ sender: Any) {
+        performSegue(withIdentifier: "ShowEditVC", sender: self)
     }
     
     
