@@ -8,12 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		440700E12037E9040027E231 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440700E02037E9040027E231 /* AppDelegate.swift */; };
-		440700E32037E9040027E231 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440700E22037E9040027E231 /* ViewController.swift */; };
 		440700E62037E9040027E231 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 440700E42037E9040027E231 /* Main.storyboard */; };
 		440700E82037E9040027E231 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 440700E72037E9040027E231 /* Assets.xcassets */; };
 		440700EB2037E9040027E231 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 440700E92037E9040027E231 /* LaunchScreen.storyboard */; };
 		440700F62037E9040027E231 /* DocReaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440700F52037E9040027E231 /* DocReaderTests.swift */; };
 		440701012037E9040027E231 /* DocReaderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440701002037E9040027E231 /* DocReaderUITests.swift */; };
+		440701122037E9A10027E231 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440701112037E9A10027E231 /* CameraViewController.swift */; };
+		440701152037EBE30027E231 /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440701142037EBE30027E231 /* ScannerView.swift */; };
+		440701172037EF840027E231 /* CameraViewController+Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440701162037EF840027E231 /* CameraViewController+Delegates.swift */; };
+		440701192037F3C60027E231 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440701182037F3C60027E231 /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +39,6 @@
 /* Begin PBXFileReference section */
 		440700DD2037E9040027E231 /* DocReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DocReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		440700E02037E9040027E231 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		440700E22037E9040027E231 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		440700E52037E9040027E231 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		440700E72037E9040027E231 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		440700EA2037E9040027E231 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -47,6 +49,10 @@
 		440700FC2037E9040027E231 /* DocReaderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DocReaderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		440701002037E9040027E231 /* DocReaderUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocReaderUITests.swift; sourceTree = "<group>"; };
 		440701022037E9040027E231 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		440701112037E9A10027E231 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		440701142037EBE30027E231 /* ScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
+		440701162037EF840027E231 /* CameraViewController+Delegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CameraViewController+Delegates.swift"; sourceTree = "<group>"; };
+		440701182037F3C60027E231 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,8 +104,10 @@
 			isa = PBXGroup;
 			children = (
 				440700E02037E9040027E231 /* AppDelegate.swift */,
-				440700E22037E9040027E231 /* ViewController.swift */,
+				4407011A20380A0D0027E231 /* Views */,
+				440701132037EA000027E231 /* Controllers */,
 				440700E42037E9040027E231 /* Main.storyboard */,
+				440701182037F3C60027E231 /* Extensions.swift */,
 				440700E72037E9040027E231 /* Assets.xcassets */,
 				440700E92037E9040027E231 /* LaunchScreen.storyboard */,
 				440700EC2037E9040027E231 /* Info.plist */,
@@ -123,6 +131,23 @@
 				440701022037E9040027E231 /* Info.plist */,
 			);
 			path = DocReaderUITests;
+			sourceTree = "<group>";
+		};
+		440701132037EA000027E231 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				440701112037E9A10027E231 /* CameraViewController.swift */,
+				440701162037EF840027E231 /* CameraViewController+Delegates.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		4407011A20380A0D0027E231 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				440701142037EBE30027E231 /* ScannerView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,8 +284,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				440700E32037E9040027E231 /* ViewController.swift in Sources */,
+				440701192037F3C60027E231 /* Extensions.swift in Sources */,
+				440701172037EF840027E231 /* CameraViewController+Delegates.swift in Sources */,
+				440701152037EBE30027E231 /* ScannerView.swift in Sources */,
 				440700E12037E9040027E231 /* AppDelegate.swift in Sources */,
+				440701122037E9A10027E231 /* CameraViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,6 +457,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5M9BB34F6M;
 				INFOPLIST_FILE = DocReader/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.creativemic.DocReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -444,6 +473,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5M9BB34F6M;
 				INFOPLIST_FILE = DocReader/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.creativemic.DocReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
