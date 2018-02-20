@@ -9,6 +9,12 @@
 import Foundation
 import UIKit
 import AVFoundation
+import Photos
+
+enum SegueIdentifiers: String {
+    case photosController = "ShowPhotosVC"
+    case editController = "ShowEditVC"
+}
 
 class CameraViewController: UIViewController {
     
@@ -48,17 +54,16 @@ class CameraViewController: UIViewController {
     
     private let photoOutput = AVCapturePhotoOutput()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         //fetchPhotos()
+        loadPhotoFromLibrary()
         setupPhotosButton()
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .authorized:
             // The user has previously granted access to the camera.
             break
-            
         case .notDetermined:
             /*
              The user has not yet been presented with the option to grant
@@ -80,16 +85,7 @@ class CameraViewController: UIViewController {
             // The user has previously denied access.
             setupResult = .notAuthorized
         }
-        /*
-         Setup the capture session.
-         In general it is not safe to mutate an AVCaptureSession or any of its
-         inputs, outputs, or connections from multiple threads at the same time.
-         
-         Why not do all of this on the main queue?
-         Because AVCaptureSession.startRunning() is a blocking call which can
-         take a long time. We dispatch session setup to the sessionQueue so
-         that the main queue isn't blocked, which keeps the UI responsive.
-         */
+
         sessionQueue.async {
             self.configureSession()
         }
@@ -131,14 +127,44 @@ class CameraViewController: UIViewController {
     }
     
     private func setupPhotosButton() {
-        photosImageView.layer.cornerRadius = 10
+        photosImageView.layer.cornerRadius = 5
         photosImageView.layer.masksToBounds = true
+        photosImageView.layer.shouldRasterize = true
+        photosImageView.layer.shadowOpacity = 1
+        photosImageView.layer.shadowColor = UIColor.black.cgColor
+        //iv.layer.shadowOffset = CGSize.init(width: 2, height: 5)
+        photosImageView.layer.shadowOffset = .zero
+        photosImageView.layer.shadowRadius = 4
         photosImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapPhotosButton)))
+    }
+    
+    private func loadPhotoFromLibrary() {
+        DispatchQueue.global(qos: .background).async {
+            let allPhotos = PHAsset.fetchAssets(with: .image, options: PHFetchOptions())
+            let imageManager = PHImageManager()
+            let imageOptions = PHImageRequestOptions()
+            guard let firstPhotoAsset = allPhotos.lastObject else { print("failed to get image"); return}
+            
+            DispatchQueue.main.async { [weak self] in
+                guard let _self = self else {return}
+                let size = _self.photosImageView.frame.size
+                imageManager.requestImage(for: firstPhotoAsset, targetSize: size, contentMode: .aspectFill, options: imageOptions, resultHandler: { (image, nil) in
+                    guard let image = image else {
+                        print("Could not retreive image")
+                        return
+                    }
+                    DispatchQueue.main.async {
+                        _self.photosImageView.image = image
+                    }
+                })
+            }
+        }
     }
     
     @objc
     private func didTapPhotosButton() {
-        print("should show photos here...")
+      performSegue(withIdentifier: SegueIdentifiers.photosController.rawValue, sender: self)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -210,11 +236,6 @@ class CameraViewController: UIViewController {
         }
         
         session.beginConfiguration()
-        
-        /*
-         We do not create an AVCaptureMovieFileOutput when setting up the session because the
-         AVCaptureMovieFileOutput does not support movie recording with AVCaptureSession.Preset.Photo.
-         */
         session.sessionPreset = .photo
         
         // Add video input.
@@ -294,10 +315,14 @@ class CameraViewController: UIViewController {
             self.photoOutput.capturePhoto(with: photoSettings, delegate: self)
         }
     }
+    
     @IBAction func proceedButtonTapped(_ sender: Any) {
-        performSegue(withIdentifier: "ShowEditVC", sender: self)
+        performSegue(withIdentifier: SegueIdentifiers.editController.rawValue, sender: self)
     }
     
+    @IBAction func cancelButtonTapped(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
     
 }
 
