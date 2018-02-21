@@ -23,6 +23,8 @@
 		440701262038F4DB0027E231 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440701252038F4DA0027E231 /* PhotosViewController.swift */; };
 		440701282038F4F00027E231 /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440701272038F4F00027E231 /* PhotosCollectionViewCell.swift */; };
 		440D7127203B39AF0089EA7D /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440D7126203B39AF0089EA7D /* RecordViewController.swift */; };
+		4431F6BF203D084800775702 /* FolderModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4431F6BE203D084800775702 /* FolderModelTests.swift */; };
+		4431F6C1203D0E0300775702 /* BiometricAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4431F6C0203D0E0300775702 /* BiometricAuthentication.swift */; };
 		44A61823203A03560094988A /* CameraControls.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44A61822203A03560094988A /* CameraControls.storyboard */; };
 		44A61825203A11150094988A /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A61824203A11150094988A /* MainTabBarViewController.swift */; };
 		44A61870203A5BB10094988A /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A6186F203A5BB10094988A /* SearchViewController.swift */; };
@@ -30,6 +32,10 @@
 		44A61876203A7FBE0094988A /* GridCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A61875203A7FBD0094988A /* GridCollectionCell.swift */; };
 		44A61878203A7FC80094988A /* ListCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A61877203A7FC80094988A /* ListCollectionCell.swift */; };
 		44E574D2203B455D00D392F8 /* FoldersPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E574D1203B455D00D392F8 /* FoldersPopoverViewController.swift */; };
+		44E574F4203BD0C600D392F8 /* AddFolderAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E574F3203BD0C600D392F8 /* AddFolderAlertController.swift */; };
+		44E574F8203BD74600D392F8 /* AlertController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44E574F7203BD74600D392F8 /* AlertController.storyboard */; };
+		44E574FA203BF73100D392F8 /* DataManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E574F9203BF73000D392F8 /* DataManger.swift */; };
+		44E574FE203BF94E00D392F8 /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E574FD203BF94E00D392F8 /* Folder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +78,8 @@
 		440701252038F4DA0027E231 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		440701272038F4F00027E231 /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		440D7126203B39AF0089EA7D /* RecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
+		4431F6BE203D084800775702 /* FolderModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderModelTests.swift; sourceTree = "<group>"; };
+		4431F6C0203D0E0300775702 /* BiometricAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricAuthentication.swift; sourceTree = "<group>"; };
 		44A61822203A03560094988A /* CameraControls.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CameraControls.storyboard; sourceTree = "<group>"; };
 		44A61824203A11150094988A /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		44A6186F203A5BB10094988A /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -79,6 +87,10 @@
 		44A61875203A7FBD0094988A /* GridCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridCollectionCell.swift; sourceTree = "<group>"; };
 		44A61877203A7FC80094988A /* ListCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionCell.swift; sourceTree = "<group>"; };
 		44E574D1203B455D00D392F8 /* FoldersPopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldersPopoverViewController.swift; sourceTree = "<group>"; };
+		44E574F3203BD0C600D392F8 /* AddFolderAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFolderAlertController.swift; sourceTree = "<group>"; };
+		44E574F7203BD74600D392F8 /* AlertController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AlertController.storyboard; sourceTree = "<group>"; };
+		44E574F9203BF73000D392F8 /* DataManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManger.swift; sourceTree = "<group>"; };
+		44E574FD203BF94E00D392F8 /* Folder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,18 +141,20 @@
 		440700DF2037E9040027E231 /* DocReader */ = {
 			isa = PBXGroup;
 			children = (
-				440700E02037E9040027E231 /* AppDelegate.swift */,
+				44E574FF203BF95E00D392F8 /* Model */,
 				4407011A20380A0D0027E231 /* Views */,
 				440701242038F42E0027E231 /* Camera */,
 				440701232038F41E0027E231 /* Editing */,
 				44A61871203A605E0094988A /* Photos */,
 				44A61872203A607E0094988A /* TabBar */,
 				444731C4203A9C2F00B27570 /* Folders */,
-				440D7126203B39AF0089EA7D /* RecordViewController.swift */,
-				44E574D1203B455D00D392F8 /* FoldersPopoverViewController.swift */,
+				44E574FB203BF89900D392F8 /* Recording */,
+				4431F6C4203D123C00775702 /* Touch Identification */,
+				44E574D0203B3BFD00D392F8 /* Helpers */,
+				44E574F9203BF73000D392F8 /* DataManger.swift */,
 				44A61822203A03560094988A /* CameraControls.storyboard */,
 				440700E42037E9040027E231 /* Main.storyboard */,
-				44E574D0203B3BFD00D392F8 /* Helpers */,
+				440700E02037E9040027E231 /* AppDelegate.swift */,
 				440700E72037E9040027E231 /* Assets.xcassets */,
 				440700E92037E9040027E231 /* LaunchScreen.storyboard */,
 				440700EC2037E9040027E231 /* Info.plist */,
@@ -152,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				4407011B20380A720027E231 /* CameraViewControllerTests.swift */,
+				4431F6BE203D084800775702 /* FolderModelTests.swift */,
 				440700F72037E9040027E231 /* Info.plist */,
 			);
 			path = DocReaderTests;
@@ -193,12 +208,21 @@
 			path = Camera;
 			sourceTree = "<group>";
 		};
+		4431F6C4203D123C00775702 /* Touch Identification */ = {
+			isa = PBXGroup;
+			children = (
+				4431F6C0203D0E0300775702 /* BiometricAuthentication.swift */,
+			);
+			path = "Touch Identification";
+			sourceTree = "<group>";
+		};
 		444731C4203A9C2F00B27570 /* Folders */ = {
 			isa = PBXGroup;
 			children = (
 				44A61873203A609E0094988A /* FoldersViewController.swift */,
 				44A61875203A7FBD0094988A /* GridCollectionCell.swift */,
 				44A61877203A7FC80094988A /* ListCollectionCell.swift */,
+				44E574D1203B455D00D392F8 /* FoldersPopoverViewController.swift */,
 			);
 			path = Folders;
 			sourceTree = "<group>";
@@ -225,8 +249,34 @@
 			isa = PBXGroup;
 			children = (
 				440701182037F3C60027E231 /* Extensions.swift */,
+				44E574FC203BF8BF00D392F8 /* AddFolderAlertControl */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		44E574FB203BF89900D392F8 /* Recording */ = {
+			isa = PBXGroup;
+			children = (
+				440D7126203B39AF0089EA7D /* RecordViewController.swift */,
+			);
+			path = Recording;
+			sourceTree = "<group>";
+		};
+		44E574FC203BF8BF00D392F8 /* AddFolderAlertControl */ = {
+			isa = PBXGroup;
+			children = (
+				44E574F3203BD0C600D392F8 /* AddFolderAlertController.swift */,
+				44E574F7203BD74600D392F8 /* AlertController.storyboard */,
+			);
+			path = AddFolderAlertControl;
+			sourceTree = "<group>";
+		};
+		44E574FF203BF95E00D392F8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				44E574FD203BF94E00D392F8 /* Folder.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -341,6 +391,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44E574F8203BD74600D392F8 /* AlertController.storyboard in Resources */,
 				440700EB2037E9040027E231 /* LaunchScreen.storyboard in Resources */,
 				44A61823203A03560094988A /* CameraControls.storyboard in Resources */,
 				440700E82037E9040027E231 /* Assets.xcassets in Resources */,
@@ -379,9 +430,13 @@
 				440701172037EF840027E231 /* CameraViewController+Delegates.swift in Sources */,
 				44A61870203A5BB10094988A /* SearchViewController.swift in Sources */,
 				44E574D2203B455D00D392F8 /* FoldersPopoverViewController.swift in Sources */,
+				4431F6C1203D0E0300775702 /* BiometricAuthentication.swift in Sources */,
+				44E574F4203BD0C600D392F8 /* AddFolderAlertController.swift in Sources */,
+				44E574FE203BF94E00D392F8 /* Folder.swift in Sources */,
 				440701152037EBE30027E231 /* ScannerView.swift in Sources */,
 				440700E12037E9040027E231 /* AppDelegate.swift in Sources */,
 				440701122037E9A10027E231 /* CameraViewController.swift in Sources */,
+				44E574FA203BF73100D392F8 /* DataManger.swift in Sources */,
 				44A61876203A7FBE0094988A /* GridCollectionCell.swift in Sources */,
 				44070122203896AA0027E231 /* EditingToolsCell.swift in Sources */,
 				44A61878203A7FC80094988A /* ListCollectionCell.swift in Sources */,
@@ -394,6 +449,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4407011C20380A720027E231 /* CameraViewControllerTests.swift in Sources */,
+				4431F6BF203D084800775702 /* FolderModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

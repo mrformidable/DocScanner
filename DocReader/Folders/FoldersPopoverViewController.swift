@@ -15,6 +15,8 @@ protocol FolderOptionsDelegate: class {
 
 class FoldersPopoverViewController: UITableViewController {
     
+    private let cellIdentifier = "FolderPopoverCellIdentifier"
+    
     private enum OptionsType: Int {
         case newFolder
         case switchDisplayType
@@ -30,12 +32,11 @@ class FoldersPopoverViewController: UITableViewController {
     
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return 3
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
         
         switch OptionsType(rawValue: indexPath.row)! {
         case .newFolder:
@@ -56,8 +57,9 @@ class FoldersPopoverViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch OptionsType(rawValue: indexPath.row)! {
         case .newFolder:
-            dismiss(animated: true, completion: nil)
-            delegate?.createNewFolder()
+            dismiss(animated: true, completion: { [weak self] in
+                self?.delegate?.createNewFolder()
+            })
         case .switchDisplayType:
             dismiss(animated: true, completion: { [weak self] in
                 self?.delegate?.switchDisplayType()

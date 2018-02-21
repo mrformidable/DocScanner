@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Add Folder Alert Controller-->
+        <scene sceneID="BL4-pQ-RnM">
+            <objects>
+                <viewController storyboardIdentifier="AlertController" extendedLayoutIncludesOpaqueBars="YES" modalTransitionStyle="crossDissolve" modalPresentationStyle="overFullScreen" id="ccr-aw-O6a" customClass="AddFolderAlertController" customModule="DocReader" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="evd-2Y-muV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G9j-fl-FbF">
+                                <rect key="frame" x="56.5" y="208.5" width="262.5" height="250.5"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="folder_image" translatesAutoresizingMaskIntoConstraints="NO" id="J3m-dj-78n">
+                                        <rect key="frame" x="85" y="-45.5" width="91.5" height="91.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="J3m-dj-78n" secondAttribute="height" id="OdG-3J-w3Y"/>
+                                        </constraints>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HAT-HO-DxU">
+                                        <rect key="frame" x="20" y="186.5" width="222.5" height="44"/>
+                                        <color key="backgroundColor" red="0.36078431370000003" green="0.41568627450000001" blue="0.76862745099999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="Zjx-Qj-zzg"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                        <state key="normal" title="Create Folder">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="createFolderTapped:" destination="ccr-aw-O6a" eventType="touchUpInside" id="Dle-Af-bzh"/>
+                                        </connections>
+                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7k1-TG-sLu">
+                                        <rect key="frame" x="20" y="140.5" width="222.5" height="31"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Secure Lock" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gbk-53-aAs">
+                                                <rect key="frame" x="0.0" y="0.5" width="173.5" height="31"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="2Fb-sy-8EQ">
+                                                <rect key="frame" x="173.5" y="0.5" width="51" height="31"/>
+                                                <color key="onTintColor" red="0.36078431370000003" green="0.41568627450000001" blue="0.76862745099999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <connections>
+                                                    <action selector="didToggleSecureLock:" destination="ccr-aw-O6a" eventType="valueChanged" id="34Q-R9-Yvg"/>
+                                                </connections>
+                                            </switch>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="LKS-Do-Jt6">
+                                        <rect key="frame" x="20" y="66" width="222.5" height="59.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Folder Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vg0-q0-hhn">
+                                                <rect key="frame" x="0.0" y="0.5" width="222.5" height="19.5"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="k70-r4-jrj">
+                                                <rect key="frame" x="0.0" y="30" width="222.5" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please Enter Folder Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DzT-pE-f0S">
+                                                <rect key="frame" x="0.0" y="60" width="222.5" height="0.0"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="11"/>
+                                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PYs-vg-Er9">
+                                        <rect key="frame" x="210" y="8" width="44" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="9CD-i1-Rt3"/>
+                                            <constraint firstAttribute="width" constant="44" id="c9c-QU-Vce"/>
+                                        </constraints>
+                                        <state key="normal" image="cancelAlert"/>
+                                        <connections>
+                                            <action selector="cancelButtonTapped:" destination="ccr-aw-O6a" eventType="touchUpInside" id="nGJ-Hx-0c6"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="LKS-Do-Jt6" secondAttribute="trailing" constant="20" id="1aD-iJ-w73"/>
+                                    <constraint firstItem="PYs-vg-Er9" firstAttribute="top" secondItem="G9j-fl-FbF" secondAttribute="top" constant="8" id="5TF-xh-VvW"/>
+                                    <constraint firstItem="J3m-dj-78n" firstAttribute="width" secondItem="G9j-fl-FbF" secondAttribute="width" multiplier="0.35" id="5eD-za-C25"/>
+                                    <constraint firstItem="J3m-dj-78n" firstAttribute="centerY" secondItem="G9j-fl-FbF" secondAttribute="top" id="FYM-Hj-oRd"/>
+                                    <constraint firstItem="7k1-TG-sLu" firstAttribute="top" secondItem="LKS-Do-Jt6" secondAttribute="bottom" constant="15" id="J26-GW-rvw"/>
+                                    <constraint firstAttribute="trailing" secondItem="7k1-TG-sLu" secondAttribute="trailing" constant="20" id="Mmp-ou-IWu"/>
+                                    <constraint firstAttribute="trailing" secondItem="PYs-vg-Er9" secondAttribute="trailing" constant="8.5" id="OUf-sj-vO1"/>
+                                    <constraint firstItem="J3m-dj-78n" firstAttribute="centerX" secondItem="G9j-fl-FbF" secondAttribute="centerX" id="RgX-bM-aI3"/>
+                                    <constraint firstAttribute="bottom" secondItem="HAT-HO-DxU" secondAttribute="bottom" constant="20" id="Xgw-SX-Atx"/>
+                                    <constraint firstAttribute="trailing" secondItem="HAT-HO-DxU" secondAttribute="trailing" constant="20" id="YTm-6U-LDJ"/>
+                                    <constraint firstItem="7k1-TG-sLu" firstAttribute="leading" secondItem="G9j-fl-FbF" secondAttribute="leading" constant="20" id="clK-r1-1x3"/>
+                                    <constraint firstItem="LKS-Do-Jt6" firstAttribute="top" secondItem="J3m-dj-78n" secondAttribute="bottom" constant="20" id="gEe-0G-t3u"/>
+                                    <constraint firstItem="HAT-HO-DxU" firstAttribute="top" secondItem="7k1-TG-sLu" secondAttribute="bottom" constant="15" id="iCE-f0-5Ji"/>
+                                    <constraint firstItem="LKS-Do-Jt6" firstAttribute="leading" secondItem="G9j-fl-FbF" secondAttribute="leading" constant="20" id="r9s-ex-R5W"/>
+                                    <constraint firstItem="HAT-HO-DxU" firstAttribute="leading" secondItem="G9j-fl-FbF" secondAttribute="leading" constant="20" id="xDM-uP-6mq"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.428860717" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="G9j-fl-FbF" firstAttribute="centerY" secondItem="evd-2Y-muV" secondAttribute="centerY" id="T2k-ed-ZSh"/>
+                            <constraint firstItem="G9j-fl-FbF" firstAttribute="centerX" secondItem="evd-2Y-muV" secondAttribute="centerX" id="WyC-qO-xy7"/>
+                            <constraint firstItem="G9j-fl-FbF" firstAttribute="width" secondItem="evd-2Y-muV" secondAttribute="width" multiplier="0.7" id="dUY-ci-46m"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="uNk-oF-NOn"/>
+                    </view>
+                    <connections>
+                        <outlet property="containerCenterYConstraint" destination="T2k-ed-ZSh" id="kL1-bi-hXP"/>
+                        <outlet property="containerView" destination="G9j-fl-FbF" id="aLv-h5-SbL"/>
+                        <outlet property="createFolderButton" destination="HAT-HO-DxU" id="5H3-LC-gky"/>
+                        <outlet property="enableSecureLockSwitch" destination="2Fb-sy-8EQ" id="MNy-O6-Osw"/>
+                        <outlet property="folderAlertLabel" destination="DzT-pE-f0S" id="kVX-N5-XSI"/>
+                        <outlet property="folderNameLabel" destination="vg0-q0-hhn" id="bQ5-SG-2tw"/>
+                        <outlet property="folderNameTextField" destination="k70-r4-jrj" id="GaS-pV-tca"/>
+                        <outlet property="imageView" destination="J3m-dj-78n" id="6A3-ZV-e9b"/>
+                        <outlet property="secureLockLabel" destination="gbk-53-aAs" id="uVA-Bz-vJM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dIT-RI-S07" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1215" y="-607"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="cancelAlert" width="64" height="64"/>
+        <image name="folder_image" width="70" height="66"/>
+    </resources>
+</document>

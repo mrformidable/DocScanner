@@ -55,7 +55,7 @@ class FoldersViewController: UIViewController {
     }
     
     @IBAction func editButtonTapped(_ sender: UIBarButtonItem) {
-    
+    print("edit button tapped")
     }
     
 }
@@ -63,7 +63,7 @@ class FoldersViewController: UIViewController {
 
 extension FoldersViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 25
+        return 20
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -141,7 +141,10 @@ extension FoldersViewController: UIPopoverPresentationControllerDelegate {
 
 extension FoldersViewController: FolderOptionsDelegate {
     func createNewFolder() {
-        print("create new folder....")
+        let alertStoryboard = UIStoryboard(name: "AlertController", bundle: nil)
+        let alertController = alertStoryboard.instantiateViewController(withIdentifier: "AlertController") as! AddFolderAlertController
+        alertController.delegate = self
+        present(alertController, animated: true, completion: nil)
     }
     
     func switchDisplayType() {
@@ -157,12 +160,14 @@ extension FoldersViewController: FolderOptionsDelegate {
     
 }
 
-struct Folder {
-    let title: String
-    let date: Date
-    var isPasswordProtected = false
-    let itemCount: Int
+extension FoldersViewController: AddFolderControllerDelegate {
+    func didTapCreateNewFolder(name: String, secureLock: Bool) {
+        print(name, secureLock)
+        let dateSince1970 = Double(Date().timeIntervalSince1970)
+        let date = Date(timeIntervalSince1970: dateSince1970)
+        _ = Folder(name: name, date: date, isPasswordProtected: false, uniqueIdentifier: UUID())
+        //DataManager.save(newFolder, with: "new folder")
+    }
+    
 }
-
-
 
