@@ -10,7 +10,15 @@ import UIKit
 
 class EditImageCell: UICollectionViewCell {
     
-    let imageView: UIImageView = {
+    var scannedDoc: ScannedDoc? {
+        didSet {
+            if let scannedDoc = scannedDoc {
+                imageView.image = UIImage(cgImage: scannedDoc.image)
+            }
+        }
+    }
+    
+    lazy var imageView: UIImageView = {
         let iv = UIImageView()
         iv.backgroundColor = .themeColor()
         iv.contentMode = .scaleAspectFit
@@ -19,7 +27,7 @@ class EditImageCell: UICollectionViewCell {
         iv.layer.shadowColor = UIColor.black.cgColor
         //iv.layer.shadowOffset = CGSize.init(width: 2, height: 5)
         iv.layer.shadowOffset = .zero
-        iv.layer.shadowRadius = 5
+        iv.layer.shadowRadius = 4
         return iv
     }()
     

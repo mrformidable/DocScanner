@@ -23,3 +23,7 @@ struct Folder: Codable {
         DataManager.delete(uniqueIdentifier.uuidString)
     }
 }
+
+
+
+

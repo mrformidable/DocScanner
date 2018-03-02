@@ -23,14 +23,21 @@
 		440701262038F4DB0027E231 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440701252038F4DA0027E231 /* PhotosViewController.swift */; };
 		440701282038F4F00027E231 /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440701272038F4F00027E231 /* PhotosCollectionViewCell.swift */; };
 		440D7127203B39AF0089EA7D /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440D7126203B39AF0089EA7D /* RecordViewController.swift */; };
+		4417F149204261F9007386F4 /* ScannedDoc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4417F148204261F9007386F4 /* ScannedDoc.swift */; };
 		4431F6BF203D084800775702 /* FolderModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4431F6BE203D084800775702 /* FolderModelTests.swift */; };
 		4431F6C1203D0E0300775702 /* BiometricAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4431F6C0203D0E0300775702 /* BiometricAuthentication.swift */; };
+		444CFFEF203E65FA00124377 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444CFFEE203E65FA00124377 /* SettingsViewController.swift */; };
+		448C3787203F36C600135B34 /* FolderMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448C3786203F36C600135B34 /* FolderMenuCell.swift */; };
 		44A61823203A03560094988A /* CameraControls.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44A61822203A03560094988A /* CameraControls.storyboard */; };
 		44A61825203A11150094988A /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A61824203A11150094988A /* MainTabBarViewController.swift */; };
 		44A61870203A5BB10094988A /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A6186F203A5BB10094988A /* SearchViewController.swift */; };
 		44A61874203A609E0094988A /* FoldersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A61873203A609E0094988A /* FoldersViewController.swift */; };
 		44A61876203A7FBE0094988A /* GridCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A61875203A7FBD0094988A /* GridCollectionCell.swift */; };
 		44A61878203A7FC80094988A /* ListCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A61877203A7FC80094988A /* ListCollectionCell.swift */; };
+		44E1A4FE203E36EA00BFBBB3 /* DocumentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E1A4FD203E36EA00BFBBB3 /* DocumentsViewController.swift */; };
+		44E1A501203E3C5200BFBBB3 /* DocumentsGridCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E1A500203E3C5200BFBBB3 /* DocumentsGridCollectionCell.swift */; };
+		44E1A503203E3C5B00BFBBB3 /* DocumentsListCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E1A502203E3C5B00BFBBB3 /* DocumentsListCollectionCell.swift */; };
+		44E1A505203E414300BFBBB3 /* DocumentsOptionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E1A504203E414300BFBBB3 /* DocumentsOptionsCell.swift */; };
 		44E574D2203B455D00D392F8 /* FoldersPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E574D1203B455D00D392F8 /* FoldersPopoverViewController.swift */; };
 		44E574F4203BD0C600D392F8 /* AddFolderAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E574F3203BD0C600D392F8 /* AddFolderAlertController.swift */; };
 		44E574F8203BD74600D392F8 /* AlertController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44E574F7203BD74600D392F8 /* AlertController.storyboard */; };
@@ -78,14 +85,21 @@
 		440701252038F4DA0027E231 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		440701272038F4F00027E231 /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		440D7126203B39AF0089EA7D /* RecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
+		4417F148204261F9007386F4 /* ScannedDoc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannedDoc.swift; sourceTree = "<group>"; };
 		4431F6BE203D084800775702 /* FolderModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderModelTests.swift; sourceTree = "<group>"; };
 		4431F6C0203D0E0300775702 /* BiometricAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricAuthentication.swift; sourceTree = "<group>"; };
+		444CFFEE203E65FA00124377 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		448C3786203F36C600135B34 /* FolderMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderMenuCell.swift; sourceTree = "<group>"; };
 		44A61822203A03560094988A /* CameraControls.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CameraControls.storyboard; sourceTree = "<group>"; };
 		44A61824203A11150094988A /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		44A6186F203A5BB10094988A /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		44A61873203A609E0094988A /* FoldersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldersViewController.swift; sourceTree = "<group>"; };
 		44A61875203A7FBD0094988A /* GridCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridCollectionCell.swift; sourceTree = "<group>"; };
 		44A61877203A7FC80094988A /* ListCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionCell.swift; sourceTree = "<group>"; };
+		44E1A4FD203E36EA00BFBBB3 /* DocumentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsViewController.swift; sourceTree = "<group>"; };
+		44E1A500203E3C5200BFBBB3 /* DocumentsGridCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsGridCollectionCell.swift; sourceTree = "<group>"; };
+		44E1A502203E3C5B00BFBBB3 /* DocumentsListCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsListCollectionCell.swift; sourceTree = "<group>"; };
+		44E1A504203E414300BFBBB3 /* DocumentsOptionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsOptionsCell.swift; sourceTree = "<group>"; };
 		44E574D1203B455D00D392F8 /* FoldersPopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldersPopoverViewController.swift; sourceTree = "<group>"; };
 		44E574F3203BD0C600D392F8 /* AddFolderAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFolderAlertController.swift; sourceTree = "<group>"; };
 		44E574F7203BD74600D392F8 /* AlertController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AlertController.storyboard; sourceTree = "<group>"; };
@@ -152,7 +166,9 @@
 				4431F6C4203D123C00775702 /* Touch Identification */,
 				44E574D0203B3BFD00D392F8 /* Helpers */,
 				44E574F9203BF73000D392F8 /* DataManger.swift */,
+				44E1A4FF203E37B600BFBBB3 /* Documents */,
 				44A61822203A03560094988A /* CameraControls.storyboard */,
+				444CFFEE203E65FA00124377 /* SettingsViewController.swift */,
 				440700E42037E9040027E231 /* Main.storyboard */,
 				440700E02037E9040027E231 /* AppDelegate.swift */,
 				440700E72037E9040027E231 /* Assets.xcassets */,
@@ -222,6 +238,7 @@
 				44A61873203A609E0094988A /* FoldersViewController.swift */,
 				44A61875203A7FBD0094988A /* GridCollectionCell.swift */,
 				44A61877203A7FC80094988A /* ListCollectionCell.swift */,
+				448C3786203F36C600135B34 /* FolderMenuCell.swift */,
 				44E574D1203B455D00D392F8 /* FoldersPopoverViewController.swift */,
 			);
 			path = Folders;
@@ -243,6 +260,17 @@
 				44A6186F203A5BB10094988A /* SearchViewController.swift */,
 			);
 			path = TabBar;
+			sourceTree = "<group>";
+		};
+		44E1A4FF203E37B600BFBBB3 /* Documents */ = {
+			isa = PBXGroup;
+			children = (
+				44E1A4FD203E36EA00BFBBB3 /* DocumentsViewController.swift */,
+				44E1A500203E3C5200BFBBB3 /* DocumentsGridCollectionCell.swift */,
+				44E1A502203E3C5B00BFBBB3 /* DocumentsListCollectionCell.swift */,
+				44E1A504203E414300BFBBB3 /* DocumentsOptionsCell.swift */,
+			);
+			path = Documents;
 			sourceTree = "<group>";
 		};
 		44E574D0203B3BFD00D392F8 /* Helpers */ = {
@@ -275,6 +303,7 @@
 			isa = PBXGroup;
 			children = (
 				44E574FD203BF94E00D392F8 /* Folder.swift */,
+				4417F148204261F9007386F4 /* ScannedDoc.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -425,20 +454,27 @@
 				44070120203810FB0027E231 /* EditImageCell.swift in Sources */,
 				440D7127203B39AF0089EA7D /* RecordViewController.swift in Sources */,
 				44A61874203A609E0094988A /* FoldersViewController.swift in Sources */,
+				4417F149204261F9007386F4 /* ScannedDoc.swift in Sources */,
 				44A61825203A11150094988A /* MainTabBarViewController.swift in Sources */,
 				440701192037F3C60027E231 /* Extensions.swift in Sources */,
 				440701172037EF840027E231 /* CameraViewController+Delegates.swift in Sources */,
 				44A61870203A5BB10094988A /* SearchViewController.swift in Sources */,
+				44E1A4FE203E36EA00BFBBB3 /* DocumentsViewController.swift in Sources */,
+				44E1A503203E3C5B00BFBBB3 /* DocumentsListCollectionCell.swift in Sources */,
 				44E574D2203B455D00D392F8 /* FoldersPopoverViewController.swift in Sources */,
 				4431F6C1203D0E0300775702 /* BiometricAuthentication.swift in Sources */,
+				448C3787203F36C600135B34 /* FolderMenuCell.swift in Sources */,
 				44E574F4203BD0C600D392F8 /* AddFolderAlertController.swift in Sources */,
+				44E1A501203E3C5200BFBBB3 /* DocumentsGridCollectionCell.swift in Sources */,
 				44E574FE203BF94E00D392F8 /* Folder.swift in Sources */,
 				440701152037EBE30027E231 /* ScannerView.swift in Sources */,
 				440700E12037E9040027E231 /* AppDelegate.swift in Sources */,
 				440701122037E9A10027E231 /* CameraViewController.swift in Sources */,
 				44E574FA203BF73100D392F8 /* DataManger.swift in Sources */,
 				44A61876203A7FBE0094988A /* GridCollectionCell.swift in Sources */,
+				44E1A505203E414300BFBBB3 /* DocumentsOptionsCell.swift in Sources */,
 				44070122203896AA0027E231 /* EditingToolsCell.swift in Sources */,
+				444CFFEF203E65FA00124377 /* SettingsViewController.swift in Sources */,
 				44A61878203A7FC80094988A /* ListCollectionCell.swift in Sources */,
 				4407011E20380CFD0027E231 /* EditScanViewController.swift in Sources */,
 			);

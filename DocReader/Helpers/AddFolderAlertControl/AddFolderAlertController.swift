@@ -46,6 +46,13 @@ final class AddFolderAlertController: UIViewController {
         containerView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleContainerTap)))
         setupKeyboardNotificationObservers()
     }
+    deinit {
+        print("add folder is deinitiing...")
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+    }
     
     override func viewDidLayoutSubviews() {
         layoutImageView()
@@ -116,6 +123,7 @@ final class AddFolderAlertController: UIViewController {
             createAlertAnimation(message: "Please Enter Folder Name")
         } else {
             delegate?.didTapCreateNewFolder(name: inputText, secureLock: enableSecureLockSwitch.isOn)
+            dismiss(animated: true, completion: nil)
         }
     }
     
@@ -123,6 +131,24 @@ final class AddFolderAlertController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
 }
+
+fileprivate extension AddFolderAlertController {
+    private func createAlertAnimation(message: String) {
+        self.folderAlertLabel.isHidden = false
+        self.folderAlertLabel.text = message
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseIn, animations: {
+            self.folderAlertLabel.alpha = 1
+        }, completion: { _ in
+            UIView.animate(withDuration: 0.8, delay: 1, options: .curveEaseIn, animations: {
+                self.folderAlertLabel.alpha = 0
+                self.folderAlertLabel.isHidden = true
+            }, completion: nil)
+        })
+    }
+}
+
+extension AddFolderAlertController: AlertControllerDelegate {}
 
 fileprivate extension AddFolderAlertController {
     func setupButton() {
@@ -155,23 +181,7 @@ fileprivate extension AddFolderAlertController {
     }
 }
 
-fileprivate extension AddFolderAlertController {
-    private func createAlertAnimation(message: String) {
-        self.folderAlertLabel.isHidden = false
-        self.folderAlertLabel.text = message
-        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
-        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseIn, animations: {
-            self.folderAlertLabel.alpha = 1
-        }, completion: { _ in
-            UIView.animate(withDuration: 0.8, delay: 1, options: .curveEaseIn, animations: {
-                self.folderAlertLabel.alpha = 0
-                self.folderAlertLabel.isHidden = true
-            }, completion: nil)
-        })
-    }
-}
 
-extension AddFolderAlertController: AlertControllerDelegate {}
 
 
 

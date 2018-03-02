@@ -10,7 +10,24 @@ import UIKit
 
 class GridCollectionCell: UICollectionViewCell {
     
-    let folderImageView: UIImageView = {
+    var folder: Folder? {
+        didSet {
+            guard let folder = folder else {  return  }
+            titeLabel.text = folder.name
+            lockImageView.isHidden = folder.isPasswordProtected ? false : true
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            descriptionLabel.text = convertDateToString(folder.date)
+        }
+    }
+    
+    private func convertDateToString(_ date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.string(from: date)
+    }
+    
+    let imageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFill
         iv.image = #imageLiteral(resourceName: "folder_icon")
@@ -21,10 +38,11 @@ class GridCollectionCell: UICollectionViewCell {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFill
         iv.image = #imageLiteral(resourceName: "lock_icon")
+        iv.isHidden = true
         return iv
     }()
     
-    let folderTitleLabel: UILabel = {
+    let titeLabel: UILabel = {
         let label = UILabel()
         label.text = "Adobe Acrobat"
         label.numberOfLines = 2
@@ -33,9 +51,9 @@ class GridCollectionCell: UICollectionViewCell {
         return label
     }()
     
-    let folderDescriptionLabel: UILabel = {
+    let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "2018 -02- 16 - 0 items"
+        label.text = "2018-02-16 - 0 items"
         label.textAlignment = .center
         label.numberOfLines = 2
         label.textColor = .lightGray
@@ -43,20 +61,24 @@ class GridCollectionCell: UICollectionViewCell {
         return label
     }()
     
+    func setup() {
+        addSubview(imageView)
+        imageView.addSubview(lockImageView)
+        addSubview(titeLabel)
+        addSubview(descriptionLabel)
+        
+        imageView.anchorConstraints(topAnchor: topAnchor, topConstant: 20, leftAnchor: leftAnchor, leftConstant: 0, rightAnchor: rightAnchor, rightConstant: 0, bottomAnchor: nil, bottomConstant: 0, heightConstant: 50, widthConstant: 0)
+        
+        lockImageView.anchorConstraints(topAnchor: nil, topConstant: 0, leftAnchor: nil, leftConstant: 0, rightAnchor: imageView.rightAnchor, rightConstant: -10, bottomAnchor: imageView.bottomAnchor, bottomConstant: -2, heightConstant: 25, widthConstant: 20)
+        
+        titeLabel.anchorConstraints(topAnchor: imageView.bottomAnchor, topConstant: 13, leftAnchor: leftAnchor, leftConstant: 2, rightAnchor: rightAnchor, rightConstant: -2, bottomAnchor: descriptionLabel.topAnchor, bottomConstant: -3, heightConstant: 0, widthConstant: 0)
+        
+        descriptionLabel.anchorConstraints(topAnchor: nil, topConstant: 0, leftAnchor: leftAnchor, leftConstant: 2, rightAnchor: rightAnchor, rightConstant: -2, bottomAnchor: nil, bottomConstant: 0, heightConstant: 0, widthConstant: 0)
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addSubview(folderImageView)
-        folderImageView.addSubview(lockImageView)
-        addSubview(folderTitleLabel)
-        addSubview(folderDescriptionLabel)
-        
-        folderImageView.anchorConstraints(topAnchor: topAnchor, topConstant: 20, leftAnchor: leftAnchor, leftConstant: 0, rightAnchor: rightAnchor, rightConstant: 0, bottomAnchor: nil, bottomConstant: 0, heightConstant: 50, widthConstant: 0)
-        
-        lockImageView.anchorConstraints(topAnchor: nil, topConstant: 0, leftAnchor: nil, leftConstant: 0, rightAnchor: folderImageView.rightAnchor, rightConstant: -10, bottomAnchor: folderImageView.bottomAnchor, bottomConstant: -2, heightConstant: 25, widthConstant: 20)
-        
-        folderTitleLabel.anchorConstraints(topAnchor: folderImageView.bottomAnchor, topConstant: 15, leftAnchor: folderImageView.leftAnchor, leftConstant: 0, rightAnchor: rightAnchor, rightConstant: -2, bottomAnchor: nil, bottomConstant: 0, heightConstant: 0, widthConstant: 0)
-        
-        folderDescriptionLabel.anchorConstraints(topAnchor: folderTitleLabel.bottomAnchor, topConstant: 0, leftAnchor: folderImageView.leftAnchor, leftConstant: 0, rightAnchor: rightAnchor, rightConstant: -2, bottomAnchor: bottomAnchor, bottomConstant: -2, heightConstant: 0, widthConstant: 0)
+        setup()
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -37,10 +37,12 @@ class PhotosViewController: UICollectionViewController {
         }
     }
     
+    deinit {
+        print("photos vc is deinitializing")
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         updateItemSize()
     }
     

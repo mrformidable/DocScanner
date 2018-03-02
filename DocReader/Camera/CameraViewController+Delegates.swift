@@ -13,7 +13,7 @@ import UIKit
 
 extension CameraViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-
+        
         if isForceStop {
             return
         }
@@ -43,16 +43,16 @@ extension CameraViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
                 EAGLContext.setCurrent(scannerView.context)
             }
             scannerView.glkView?.bindDrawable()
-            DispatchQueue.main.sync {
-                self.scannerView.coreImageContext?.draw(image, in: scannerView.bounds, from: scannerView.cropRect(forPreviewImage: image))
+            DispatchQueue.main.sync { [weak self] in
+                self?.scannerView.coreImageContext?.draw(image, in: scannerView.bounds, from: scannerView.cropRect(forPreviewImage: image))
             }
             
             scannerView.glkView?.display()
             
             if(scannerView.intrinsicContentSize.width != image.extent.size.width) {
                 scannerView.intrinsicContentSize = image.extent.size;
-                DispatchQueue.main.async {
-                    self.scannerView.invalidateIntrinsicContentSize()
+                DispatchQueue.main.async { [weak self] in
+                    self?.scannerView.invalidateIntrinsicContentSize()
                 }
             }
             image = CIImage();
@@ -65,20 +65,30 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if let photoData = photo.fileDataRepresentation() {
             processImageFromCapture(imageData: photoData, completionHandler: { (images) in
-                //self.photos += images
-//                if isSingleDocument {
-//                    performSegue(withIdentifier: "showEditVC", sender: self)
-//                } else {
-//                    multiPageButton.setTitle("\(photos.count) Pages", for: .normal)
-//                }
+                let dateSince1970 = Double(Date().timeIntervalSince1970)
+                let date = Date(timeIntervalSince1970: dateSince1970)
+                if self.isMultiPageEnabled {
+                    let scannedDoc = ScannedDoc(image: images.first!, date: date)
+                    self.scannedDocs.append(scannedDoc)
+                    //self.multiPagesButton.setTitle("\(self.scannedDocs.count) Pages", for: .normal)
+                    if scannedDocs.count > 1 {
+                      self.performSegue(withIdentifier: SegueIdentifiers.editController.rawValue, sender: self)
+                    }
+    
+                } else {
+                    let scannedDoc = ScannedDoc(image: images.last!, date: date)
+                    self.scannedDocs.append(scannedDoc)
+                    self.performSegue(withIdentifier: SegueIdentifiers.editController.rawValue, sender: self)
+                }
             })
         }
     }
+    
     func photoOutput(_ output: AVCapturePhotoOutput, willCapturePhotoFor resolvedSettings: AVCaptureResolvedPhotoSettings) {
-        DispatchQueue.main.async {
-            self.scannerView.videoPreviewLayer.opacity = 0
+        DispatchQueue.main.async { [weak self] in
+            self?.scannerView.videoPreviewLayer.opacity = 0
             UIView.animate(withDuration: 0.25) {
-                self.scannerView.videoPreviewLayer.opacity = 1
+                self?.scannerView.videoPreviewLayer.opacity = 1
             }
         }
     }
@@ -111,7 +121,7 @@ extension CameraViewController {
             }
             
             var bounds: CGSize = (enhancedImage?.extent.size)!
-            bounds = CGSize(width: (bounds.width/4)*4, height: (bounds.height/4)*4)
+            bounds = CGSize(width: (bounds.width / 4) * 4, height: (bounds.height/4) * 4)
             let extent = CGRect(x: CGFloat((enhancedImage?.extent.origin.x)!), y: CGFloat((enhancedImage?.extent.origin.y)!), width: CGFloat(bounds.width), height: CGFloat(bounds.height))
             let bytesPerPixel: Int = 8
             let rowBytes: uint = uint(Float(bytesPerPixel) * Float(bounds.width))
@@ -124,8 +134,8 @@ extension CameraViewController {
             free(byteBuffer)
             if let imgRef = imgRef {
                 photos.append(imgRef)
-                completionHandler(photos)
             }
+            completionHandler(photos)
         }
     }
 }

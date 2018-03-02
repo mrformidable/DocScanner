@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,15 +14,15 @@
             <objects>
                 <viewController storyboardIdentifier="CameraViewController" id="x6C-km-GvB" customClass="CameraViewController" customModule="DocReader" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lCg-Lo-gzB">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9gB-Wg-QhT" customClass="ScannerView" customModule="DocReader" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="64" width="375" height="503"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="503"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L0p-vC-bxt" userLabel="containerView">
-                                <rect key="frame" x="0.0" y="567" width="375" height="100"/>
+                                <rect key="frame" x="0.0" y="503" width="375" height="100"/>
                                 <subviews>
                                     <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="b3a-tz-ELS">
                                         <rect key="frame" x="15" y="32" width="40" height="40"/>
@@ -49,8 +49,8 @@
                                             <action selector="captuePhoto:" destination="x6C-km-GvB" eventType="touchUpInside" id="p6G-gi-05q"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Multi-Pages" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3ec-1t-bxQ">
-                                        <rect key="frame" x="279.5" y="77" width="91.5" height="20"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Double-Sided" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3ec-1t-bxQ">
+                                        <rect key="frame" x="269" y="77" width="102" height="20"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                         <color key="textColor" red="0.12502530219999999" green="0.17851209639999999" blue="0.47024446730000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -61,7 +61,10 @@
                                             <constraint firstAttribute="width" constant="40" id="PDt-Yi-n36"/>
                                             <constraint firstAttribute="height" constant="40" id="b2b-xO-uAp"/>
                                         </constraints>
-                                        <state key="normal" image="pages"/>
+                                        <state key="normal" image="documents"/>
+                                        <connections>
+                                            <action selector="multiPagesButtonTapped:" destination="x6C-km-GvB" eventType="touchUpInside" id="QV0-gY-HKK"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -70,7 +73,7 @@
                                     <constraint firstAttribute="height" constant="100" id="BCr-cY-Nol"/>
                                     <constraint firstItem="yXO-jn-4j9" firstAttribute="top" secondItem="L0p-vC-bxt" secondAttribute="top" constant="10" id="CM6-vH-vqq"/>
                                     <constraint firstItem="3ec-1t-bxQ" firstAttribute="top" secondItem="2dL-ur-kRO" secondAttribute="bottom" constant="5" id="CRb-LT-eSM"/>
-                                    <constraint firstItem="3ec-1t-bxQ" firstAttribute="leading" secondItem="yXO-jn-4j9" secondAttribute="trailing" constant="47.5" id="Fa4-od-oLz"/>
+                                    <constraint firstItem="3ec-1t-bxQ" firstAttribute="leading" secondItem="yXO-jn-4j9" secondAttribute="trailing" constant="37" id="Fa4-od-oLz"/>
                                     <constraint firstItem="yXO-jn-4j9" firstAttribute="leading" secondItem="i09-Hj-Xrw" secondAttribute="trailing" constant="87" id="J63-UV-sAr"/>
                                     <constraint firstItem="2dL-ur-kRO" firstAttribute="top" secondItem="L0p-vC-bxt" secondAttribute="top" constant="32" id="L2b-1c-pEv"/>
                                     <constraint firstItem="yXO-jn-4j9" firstAttribute="centerX" secondItem="L0p-vC-bxt" secondAttribute="centerX" constant="4.5" id="O0B-vN-3nL"/>
@@ -102,18 +105,19 @@
                                 <action selector="cancelButtonTapped:" destination="x6C-km-GvB" id="h71-h2-21d"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Proceed" id="zTS-Ds-cBD">
+                        <barButtonItem key="rightBarButtonItem" title="Auto Off" id="zTS-Ds-cBD">
                             <connections>
-                                <action selector="proceedButtonTapped:" destination="x6C-km-GvB" id="jvq-RE-oqX"/>
+                                <action selector="autoDetectionButtonTapped:" destination="x6C-km-GvB" id="69O-dD-04B"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="autoDetectButton" destination="zTS-Ds-cBD" id="42N-GW-qjc"/>
                         <outlet property="multiPagesButton" destination="2dL-ur-kRO" id="DZY-ZD-gaM"/>
                         <outlet property="photosImageView" destination="b3a-tz-ELS" id="egh-gF-mCX"/>
                         <outlet property="scannerView" destination="9gB-Wg-QhT" id="KX4-Hp-Gnu"/>
                         <segue destination="rM3-N8-FKH" kind="presentation" identifier="ShowPhotosVC" id="LfN-lZ-Eji"/>
-                        <segue destination="8eb-bK-GdM" kind="show" identifier="ShowEditVC" action="showDetailViewController:sender:" id="n7b-mL-JwN"/>
+                        <segue destination="8eb-bK-GdM" kind="show" identifier="ShowEditVC" id="RSm-qF-DvE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nv4-EA-ii1" sceneMemberID="firstResponder"/>
@@ -125,12 +129,14 @@
             <objects>
                 <viewController id="8eb-bK-GdM" customClass="EditScanViewController" customModule="DocReader" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MFl-Hy-3ec">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="K9D-Sy-W6s"/>
                     </view>
-                    <navigationItem key="navigationItem" id="OhU-dI-u7w"/>
+                    <navigationItem key="navigationItem" id="OhU-dI-u7w">
+                        <barButtonItem key="backBarButtonItem" title="Cancel" id="R8T-FK-nFK"/>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tsb-M3-Ipz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -140,7 +146,7 @@
         <scene sceneID="cfQ-v4-kv0">
             <objects>
                 <collectionViewController id="WFI-D7-xhF" customClass="PhotosViewController" customModule="DocReader" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="EQH-uM-SH6">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="EQH-uM-SH6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -151,14 +157,14 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotosCell" id="tr3-tF-9YI" customClass="PhotosCollectionViewCell" customModule="DocReader" customModuleProvider="target">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" reuseIdentifier="PhotosCell" id="tr3-tF-9YI" customClass="PhotosCollectionViewCell" customModule="DocReader" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                     <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vWZ-fi-W7z">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vWZ-fi-W7z">
                                             <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                         </imageView>
                                     </subviews>
@@ -201,7 +207,7 @@
             <objects>
                 <navigationController storyboardIdentifier="CameraNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="vZ9-3s-Sh3" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ifn-ia-GN2">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="ifn-ia-GN2">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -242,6 +248,6 @@
     </scenes>
     <resources>
         <image name="captureButton" width="78" height="78"/>
-        <image name="pages" width="96" height="96"/>
+        <image name="documents" width="50" height="50"/>
     </resources>
 </document>

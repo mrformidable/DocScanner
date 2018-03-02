@@ -20,6 +20,7 @@ class CameraViewController: UIViewController {
     
     @IBOutlet weak var scannerView: ScannerView!
     
+    @IBOutlet weak var autoDetectButton: UIBarButtonItem!
     @IBOutlet weak var multiPagesButton: UIButton!
     
     @IBOutlet weak var photosImageView: UIImageView!
@@ -43,7 +44,6 @@ class CameraViewController: UIViewController {
     var videoDeviceInput: AVCaptureDeviceInput!
     
     // MARK: Caputuring Photos
-    
     var isForceStop = false
     var isStopped = false
     var isCapturing = false
@@ -52,12 +52,20 @@ class CameraViewController: UIViewController {
     var isEnableBorderDetection = true
     var borderDetectLastRectangleFeature: VNRectangleFeature?
     
+    var scannedDocs = [ScannedDoc]()
+    
     private let photoOutput = AVCapturePhotoOutput()
+    
+    var isMultiPageEnabled = false
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        print("memory too much, its gonna kill app...")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        //fetchPhotos()
         loadPhotoFromLibrary()
         setupPhotosButton()
         switch AVCaptureDevice.authorizationStatus(for: .video) {
@@ -85,7 +93,7 @@ class CameraViewController: UIViewController {
             // The user has previously denied access.
             setupResult = .notAuthorized
         }
-
+        
         sessionQueue.async {
             self.configureSession()
         }
@@ -117,12 +125,12 @@ class CameraViewController: UIViewController {
     }
     
     private func hideGLKView(_ hidden: Bool) {
-        UIView.animate(withDuration: 0.1, animations: {() -> Void in
-            self.scannerView.glkView?.alpha = (hidden) ? 0.0 : 1.0
-        }, completion: {(_ finished: Bool) -> Void in
-            if !finished {
-                return
-            }
+        UIView.animate(withDuration: 0.1, animations: { [weak self] () -> Void in
+            self?.scannerView.glkView?.alpha = (hidden) ? 0.0 : 1.0
+            }, completion: {(_ finished: Bool) -> Void in
+                if !finished {
+                    return
+             }
         })
     }
     
@@ -144,7 +152,6 @@ class CameraViewController: UIViewController {
             let imageManager = PHImageManager()
             let imageOptions = PHImageRequestOptions()
             guard let firstPhotoAsset = allPhotos.lastObject else { print("failed to get image"); return}
-            
             DispatchQueue.main.async { [weak self] in
                 guard let _self = self else {return}
                 let size = _self.photosImageView.frame.size
@@ -163,18 +170,16 @@ class CameraViewController: UIViewController {
     
     @objc
     private func didTapPhotosButton() {
-      performSegue(withIdentifier: SegueIdentifiers.photosController.rawValue, sender: self)
+        performSegue(withIdentifier: SegueIdentifiers.photosController.rawValue, sender: self)
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         sessionQueue.async {
             switch self.setupResult {
             case .success:
                 // Only setup observers and start the session running if setup succeeded.
-                //self.addObservers()
                 self.session.startRunning()
                 //self.isEnableBorderDetection = true
                 self.start()
@@ -200,7 +205,7 @@ class CameraViewController: UIViewController {
                 }
                 
             case .configurationFailed:
-                DispatchQueue.main.async {
+                DispatchQueue.main.async { [weak self] in
                     let alertMsg = "Alert message when something goes wrong during capture session configuration"
                     let message = NSLocalizedString("Unable to capture media", comment: alertMsg)
                     let alertController = UIAlertController(title: "AVCam", message: message, preferredStyle: .alert)
@@ -209,7 +214,7 @@ class CameraViewController: UIViewController {
                                                             style: .cancel,
                                                             handler: nil))
                     
-                    self.present(alertController, animated: true, completion: nil)
+                    self?.present(alertController, animated: true, completion: nil)
                 }
             }
         }
@@ -217,13 +222,17 @@ class CameraViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        sessionQueue.async {
+        sessionQueue.async { 
             if self.setupResult == .success {
                 self.session.stopRunning()
                 self.isSessionRunning = self.session.isRunning
-                //self.removeObservers()
+                self.removeObservers()
             }
         }
+    }
+    
+    deinit {
+        print("all observers removed view deallocated")
     }
     
     private func configureSession() {
@@ -231,13 +240,12 @@ class CameraViewController: UIViewController {
             return
         }
         
-        DispatchQueue.main.async {
-            self.scannerView.createGLKView()
+        DispatchQueue.main.async { [weak self] in
+            self?.scannerView.createGLKView()
         }
         
         session.beginConfiguration()
         session.sessionPreset = .photo
-        
         // Add video input.
         do {
             var defaultVideoDevice: AVCaptureDevice?
@@ -284,13 +292,9 @@ class CameraViewController: UIViewController {
             dataOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as AnyHashable as! String: kCVPixelFormatType_32BGRA]
             dataOutput.setSampleBufferDelegate(self, queue: sessionQueue)
             session.addOutput(dataOutput)
-            photoOutput.isHighResolutionCaptureEnabled = true
+            //photoOutput.isHighResolutionCaptureEnabled = true
             let connection: AVCaptureConnection? = dataOutput.connections.first
             connection?.videoOrientation = .portrait
-            
-            if connection != nil {
-                print("connection is not nil")
-            }
             
         } else {
             print("Could not add photo output to the session")
@@ -301,6 +305,19 @@ class CameraViewController: UIViewController {
         session.commitConfiguration()
     }
     
+    private func removeObservers() {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == SegueIdentifiers.editController.rawValue {
+            if let editScanViewController = segue.destination as? EditScanViewController {
+                editScanViewController.scannedDocs = self.scannedDocs
+                editScanViewController.delegate = self
+            }
+        }
+    }
+    
     @IBAction func captuePhoto(_ sender: Any) {
         sessionQueue.async {
             var photoSettings = AVCapturePhotoSettings()
@@ -308,7 +325,7 @@ class CameraViewController: UIViewController {
             if self.photoOutput.availablePhotoCodecTypes.contains(.hevc) {
                 photoSettings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.hevc])
             }
-            photoSettings.isHighResolutionPhotoEnabled = true
+            //photoSettings.isHighResolutionPhotoEnabled = true
             if !photoSettings.__availablePreviewPhotoPixelFormatTypes.isEmpty {
                 photoSettings.previewPhotoFormat = [kCVPixelBufferPixelFormatTypeKey as String: photoSettings.__availablePreviewPhotoPixelFormatTypes.first!]
             }
@@ -316,8 +333,22 @@ class CameraViewController: UIViewController {
         }
     }
     
-    @IBAction func proceedButtonTapped(_ sender: Any) {
-        performSegue(withIdentifier: SegueIdentifiers.editController.rawValue, sender: self)
+    @IBAction func autoDetectionButtonTapped(_ sender: Any) {
+        isEnableBorderDetection = !isEnableBorderDetection
+        if isEnableBorderDetection {
+            autoDetectButton.title = "Auto Off"
+        } else {
+            autoDetectButton.title = "Auto"
+        }
+    }
+    
+    @IBAction func multiPagesButtonTapped(_ sender: Any) {
+        isMultiPageEnabled = !isMultiPageEnabled
+        if isMultiPageEnabled {
+            multiPagesButton.setImage(#imageLiteral(resourceName: "documents_filled"), for: .normal)
+        } else {
+            multiPagesButton.setImage(#imageLiteral(resourceName: "documents"), for: .normal)
+        }
     }
     
     @IBAction func cancelButtonTapped(_ sender: Any) {
@@ -326,7 +357,15 @@ class CameraViewController: UIViewController {
     
 }
 
-
+extension CameraViewController: EditScanDelegate {
+    func deletePage(_ index: Int) {
+        scannedDocs.remove(at: index)
+    }
+    
+    func removeAllScannedDocs() {
+        scannedDocs.removeAll()
+    }
+}
 
 
 
