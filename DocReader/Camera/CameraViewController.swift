@@ -181,7 +181,6 @@ class CameraViewController: UIViewController {
             case .success:
                 // Only setup observers and start the session running if setup succeeded.
                 self.session.startRunning()
-                //self.isEnableBorderDetection = true
                 self.start()
                 self.isSessionRunning = self.session.isRunning
                 
@@ -312,13 +311,18 @@ class CameraViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == SegueIdentifiers.editController.rawValue {
             if let editScanViewController = segue.destination as? EditScanViewController {
-                editScanViewController.scannedDocs = self.scannedDocs
                 editScanViewController.delegate = self
+                editScanViewController.scannedDocs = self.scannedDocs
+                editScanViewController.documentOrigin = .camera
             }
         }
     }
     
     @IBAction func captuePhoto(_ sender: Any) {
+        handlePhotoCapture()
+    }
+    
+    func handlePhotoCapture() {
         sessionQueue.async {
             var photoSettings = AVCapturePhotoSettings()
             // Capture HEIF photo when supported, with flash set to auto and high resolution photo enabled.

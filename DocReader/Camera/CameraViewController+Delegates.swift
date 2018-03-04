@@ -121,7 +121,7 @@ extension CameraViewController {
             }
             
             var bounds: CGSize = (enhancedImage?.extent.size)!
-            bounds = CGSize(width: (bounds.width / 4) * 4, height: (bounds.height/4) * 4)
+            bounds = CGSize(width: (bounds.width / 4) * 4, height: (bounds.height / 4) * 4)
             let extent = CGRect(x: CGFloat((enhancedImage?.extent.origin.x)!), y: CGFloat((enhancedImage?.extent.origin.y)!), width: CGFloat(bounds.width), height: CGFloat(bounds.height))
             let bytesPerPixel: Int = 8
             let rowBytes: uint = uint(Float(bytesPerPixel) * Float(bounds.width))
@@ -136,6 +136,7 @@ extension CameraViewController {
                 photos.append(imgRef)
             }
             completionHandler(photos)
+            self.imageDedectionConfidence = 0.0
         }
     }
 }

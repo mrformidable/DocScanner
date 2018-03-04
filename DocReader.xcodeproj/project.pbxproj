@@ -23,10 +23,15 @@
 		440701262038F4DB0027E231 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440701252038F4DA0027E231 /* PhotosViewController.swift */; };
 		440701282038F4F00027E231 /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440701272038F4F00027E231 /* PhotosCollectionViewCell.swift */; };
 		440D7127203B39AF0089EA7D /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440D7126203B39AF0089EA7D /* RecordViewController.swift */; };
+		44125C842048F1DF006BE439 /* OCRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44125C832048F1DF006BE439 /* OCRViewController.swift */; };
+		44125C8E20492FFA006BE439 /* SVProgressHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44125C8F20492FFA006BE439 /* SVProgressHUD.framework */; };
 		4417F149204261F9007386F4 /* ScannedDoc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4417F148204261F9007386F4 /* ScannedDoc.swift */; };
 		4431F6BF203D084800775702 /* FolderModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4431F6BE203D084800775702 /* FolderModelTests.swift */; };
 		4431F6C1203D0E0300775702 /* BiometricAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4431F6C0203D0E0300775702 /* BiometricAuthentication.swift */; };
 		444CFFEF203E65FA00124377 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444CFFEE203E65FA00124377 /* SettingsViewController.swift */; };
+		44669FDD20493320000A2080 /* TesseractOCR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44669FDE20493320000A2080 /* TesseractOCR.framework */; };
+		44669FDF2049332D000A2080 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 44125C812048F133006BE439 /* libz.tbd */; };
+		44669FE12049363E000A2080 /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = 44669FE02049363E000A2080 /* tessdata */; };
 		448C3787203F36C600135B34 /* FolderMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448C3786203F36C600135B34 /* FolderMenuCell.swift */; };
 		44A61823203A03560094988A /* CameraControls.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44A61822203A03560094988A /* CameraControls.storyboard */; };
 		44A61825203A11150094988A /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A61824203A11150094988A /* MainTabBarViewController.swift */; };
@@ -85,10 +90,20 @@
 		440701252038F4DA0027E231 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		440701272038F4F00027E231 /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		440D7126203B39AF0089EA7D /* RecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
+		44125C812048F133006BE439 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		44125C832048F1DF006BE439 /* OCRViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCRViewController.swift; sourceTree = "<group>"; };
+		44125C8720492E3B006BE439 /* TesseractOCR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = TesseractOCR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		44125C8920492EEE006BE439 /* TesseractOCR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = TesseractOCR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		44125C8A20492F59006BE439 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
+		44125C8D20492FF0006BE439 /* Pods_DocReader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_DocReader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		44125C8F20492FFA006BE439 /* SVProgressHUD.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SVProgressHUD.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		44125C9120493002006BE439 /* TesseractOCR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = TesseractOCR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4417F148204261F9007386F4 /* ScannedDoc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannedDoc.swift; sourceTree = "<group>"; };
 		4431F6BE203D084800775702 /* FolderModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderModelTests.swift; sourceTree = "<group>"; };
 		4431F6C0203D0E0300775702 /* BiometricAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricAuthentication.swift; sourceTree = "<group>"; };
 		444CFFEE203E65FA00124377 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		44669FDE20493320000A2080 /* TesseractOCR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = TesseractOCR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		44669FE02049363E000A2080 /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
 		448C3786203F36C600135B34 /* FolderMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderMenuCell.swift; sourceTree = "<group>"; };
 		44A61822203A03560094988A /* CameraControls.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CameraControls.storyboard; sourceTree = "<group>"; };
 		44A61824203A11150094988A /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
@@ -105,6 +120,9 @@
 		44E574F7203BD74600D392F8 /* AlertController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AlertController.storyboard; sourceTree = "<group>"; };
 		44E574F9203BF73000D392F8 /* DataManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManger.swift; sourceTree = "<group>"; };
 		44E574FD203BF94E00D392F8 /* Folder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
+		A5D5A7EF4BF23C8C2E9084CC /* Pods-DocReader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DocReader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DocReader/Pods-DocReader.debug.xcconfig"; sourceTree = "<group>"; };
+		D9772076FF7BE0F5E18B8F65 /* Pods-DocReader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DocReader.release.xcconfig"; path = "Pods/Target Support Files/Pods-DocReader/Pods-DocReader.release.xcconfig"; sourceTree = "<group>"; };
+		F389A88856A2D0A2A875C91D /* Pods_DocReader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DocReader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +130,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44669FDF2049332D000A2080 /* libz.tbd in Frameworks */,
+				44669FDD20493320000A2080 /* TesseractOCR.framework in Frameworks */,
+				44125C8E20492FFA006BE439 /* SVProgressHUD.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,6 +153,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		222334D090C1D64B196455F2 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A5D5A7EF4BF23C8C2E9084CC /* Pods-DocReader.debug.xcconfig */,
+				D9772076FF7BE0F5E18B8F65 /* Pods-DocReader.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		440700D42037E9040027E231 = {
 			isa = PBXGroup;
 			children = (
@@ -139,6 +169,8 @@
 				440700F42037E9040027E231 /* DocReaderTests */,
 				440700FF2037E9040027E231 /* DocReaderUITests */,
 				440700DE2037E9040027E231 /* Products */,
+				222334D090C1D64B196455F2 /* Pods */,
+				C9DF50B599ABB6E5E3D6D2C5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -171,6 +203,7 @@
 				444CFFEE203E65FA00124377 /* SettingsViewController.swift */,
 				440700E42037E9040027E231 /* Main.storyboard */,
 				440700E02037E9040027E231 /* AppDelegate.swift */,
+				44669FE02049363E000A2080 /* tessdata */,
 				440700E72037E9040027E231 /* Assets.xcassets */,
 				440700E92037E9040027E231 /* LaunchScreen.storyboard */,
 				440700EC2037E9040027E231 /* Info.plist */,
@@ -209,6 +242,7 @@
 			isa = PBXGroup;
 			children = (
 				4407011D20380CFD0027E231 /* EditScanViewController.swift */,
+				44125C832048F1DF006BE439 /* OCRViewController.swift */,
 				4407011F203810FB0027E231 /* EditImageCell.swift */,
 				44070121203896AA0027E231 /* EditingToolsCell.swift */,
 			);
@@ -308,6 +342,22 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		C9DF50B599ABB6E5E3D6D2C5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				44669FDE20493320000A2080 /* TesseractOCR.framework */,
+				44125C9120493002006BE439 /* TesseractOCR.framework */,
+				44125C8F20492FFA006BE439 /* SVProgressHUD.framework */,
+				44125C8D20492FF0006BE439 /* Pods_DocReader.framework */,
+				44125C8A20492F59006BE439 /* libstdc++.tbd */,
+				44125C8920492EEE006BE439 /* TesseractOCR.framework */,
+				44125C8720492E3B006BE439 /* TesseractOCR.framework */,
+				44125C812048F133006BE439 /* libz.tbd */,
+				F389A88856A2D0A2A875C91D /* Pods_DocReader.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -315,9 +365,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 440701052037E9040027E231 /* Build configuration list for PBXNativeTarget "DocReader" */;
 			buildPhases = (
+				4DEA128B9477CC097B57FA0D /* [CP] Check Pods Manifest.lock */,
 				440700D92037E9040027E231 /* Sources */,
 				440700DA2037E9040027E231 /* Frameworks */,
 				440700DB2037E9040027E231 /* Resources */,
+				8E518440508B1F61F40C6707 /* [CP] Embed Pods Frameworks */,
+				7B3DDEAE682E840EF1597A13 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -425,6 +478,7 @@
 				44A61823203A03560094988A /* CameraControls.storyboard in Resources */,
 				440700E82037E9040027E231 /* Assets.xcassets in Resources */,
 				440700E62037E9040027E231 /* Main.storyboard in Resources */,
+				44669FE12049363E000A2080 /* tessdata in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -444,6 +498,62 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4DEA128B9477CC097B57FA0D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DocReader-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7B3DDEAE682E840EF1597A13 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DocReader/Pods-DocReader-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8E518440508B1F61F40C6707 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-DocReader/Pods-DocReader-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/TesseractOCRiOS/TesseractOCR.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TesseractOCR.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DocReader/Pods-DocReader-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		440700D92037E9040027E231 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -460,6 +570,7 @@
 				440701172037EF840027E231 /* CameraViewController+Delegates.swift in Sources */,
 				44A61870203A5BB10094988A /* SearchViewController.swift in Sources */,
 				44E1A4FE203E36EA00BFBBB3 /* DocumentsViewController.swift in Sources */,
+				44125C842048F1DF006BE439 /* OCRViewController.swift in Sources */,
 				44E1A503203E3C5B00BFBBB3 /* DocumentsListCollectionCell.swift in Sources */,
 				44E574D2203B455D00D392F8 /* FoldersPopoverViewController.swift in Sources */,
 				4431F6C1203D0E0300775702 /* BiometricAuthentication.swift in Sources */,
@@ -564,6 +675,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -621,6 +733,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -641,10 +754,12 @@
 		};
 		440701062037E9040027E231 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A5D5A7EF4BF23C8C2E9084CC /* Pods-DocReader.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5M9BB34F6M;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = DocReader/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -657,10 +772,12 @@
 		};
 		440701072037E9040027E231 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D9772076FF7BE0F5E18B8F65 /* Pods-DocReader.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5M9BB34F6M;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = DocReader/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

@@ -8,7 +8,9 @@
 
 import UIKit
 import Foundation
-
+import TesseractOCR
+import SVProgressHUD
+import Photos
 private let editImageCellId = "EditImageCell"
 private let editingToolsCellId = "EditingToolsCell"
 
@@ -17,6 +19,17 @@ private enum EditingSections: Int {
     case ocrPage
     case cropPage
     case deletePage
+}
+
+enum DocumentOrigin {
+    case camera
+    case photos
+}
+
+enum ProgressViewStyle {
+    case status
+    case progress
+    case none
 }
 
 struct EditTool {
@@ -77,23 +90,44 @@ class EditScanViewController: UIViewController {
             if totalPages == 1 {
                 navigationItem.title = "Page 1"
             }
-            if totalPages == 2 {
+            if totalPages > 2 {
                 navigationItem.title = "Page \(currentPage)/ \(totalPages)"
             }
         }
     }
+    
+    var recognizedText: String?
+    
+    var progressUpdate: Float = 0
+    
+    private var recognitionProgress: Float = 0 {
+        didSet {
+            progressUpdate += recognitionProgress
+            print(recognitionProgress)
+        }
+    }
+    
+    private let darkOverlay = UIView()
+    
+    var documentOrigin: DocumentOrigin?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
         setupNavigationBar()
         setupEditingTools()
+        print("Number of docs for processing are:", scannedDocs.count)
+        print(documentOrigin ?? "no document origin")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
     }
     
     private func setupNavigationBar() {
         let titleAttributes = [NSAttributedStringKey.font: UIFont.monospacedDigitSystemFont(ofSize: 16, weight: .semibold), NSAttributedStringKey.foregroundColor: UIColor.white]
         navigationController?.navigationBar.titleTextAttributes = titleAttributes
-        //navigationItem.title = "Pages \(scannedDocs.count)"
         let leftBarButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(didTapCancelButton))
         navigationItem.leftBarButtonItem = leftBarButton
         navigationItem.title = "Page 1 / \(scannedDocs.count)"
@@ -115,6 +149,36 @@ class EditScanViewController: UIViewController {
         present(alertController, animated: true, completion: nil)
     }
     
+    @IBAction func saveButtonTapped(_ sender: Any) {
+        let alertController = UIAlertController(title: "Select an option", message: nil, preferredStyle: .alert)
+        let pdfAction = UIAlertAction(title: "Save as PDF", style: .default) { (action) in
+            
+        }
+        let photoAction = UIAlertAction(title: "Save to Photo Library", style: .default) { (_) in
+            if self.scannedDocs.count > 0 {
+                
+                for scan in self.scannedDocs {
+                    let image = UIImage(cgImage: scan.image)
+                    self.savePhotoToLibrary(image)
+                }
+            }
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default)
+        alertController.addAction(cancelAction)
+        alertController.addAction(pdfAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    fileprivate func savePhotoToLibrary(_ image: UIImage) {
+        // Add it to the photo library.
+        PHPhotoLibrary.shared().performChanges({
+            let _ = PHAssetChangeRequest.creationRequestForAsset(from: image)
+        }, completionHandler: {success, error in
+            if !success { print("error creating asset: \(String(describing: error))") }
+        })
+    }
+    
     private func setupCollectionView() {
         view.addSubview(photosCollectionView)
         view.addSubview(editingToolsCollectionView)
@@ -130,36 +194,120 @@ class EditScanViewController: UIViewController {
         self.toolButtons = [addPageTool, ocrTool, cropTool, deletePageTool]
     }
     
-    func handlePageAddition() {
-        if scannedDocs.count > 1 {
-            showAlertController(forTitle: "Unable to add page", message: "2 pages have already been selected. Delete a page then try adding")
-            return
+   fileprivate func handlePageAddition() {
+        switch documentOrigin! {
+        case .camera:
+            if scannedDocs.count > 1 {
+                showAlertController(forTitle: "Unable to add page", message: "2 pages have already been selected. Delete a page then try adding")
+                return
+            }
+            navigationController?.popViewController(animated: true)
+            
+        case .photos:
+            guard scannedDocs.count < 100 else {
+                showAlertController(forTitle: "Max Selection", message: "You have selected more than 100 photos")
+                return
+            }
+            navigationController?.popViewController(animated: true)
         }
-        navigationController?.popViewController(animated: true)
     }
-
     
-    func handlePageDeletion() {
+   fileprivate func handlePageDeletion() {
         let index = currentPage - 1
         scannedDocs.remove(at: index)
         delegate?.deletePage(index)
-        currentPage = 1
         totalPages -= 1
         photosCollectionView.reloadData()
+        updateNavigationTitle(index, totalPages: totalPages)
+        if index == totalPages {
+            // we know this is the last page
+            currentPage -= 1
+            updateNavigationTitle(index - 1, totalPages: totalPages)
+        }
+        
         if totalPages == 0 {
             self.navigationController?.popViewController(animated: true)
             self.scannedDocs.removeAll()
             self.delegate?.removeAllScannedDocs()
         }
     }
-
+    //"Please wait recognition in process.."
+    private func showProgressView(withStyle style: ProgressViewStyle, statusMessage: String?) {
+        switch style {
+        case .status:
+            SVProgressHUD.show(withStatus: statusMessage)
+        case .none:
+            SVProgressHUD.show()
+        case .progress:
+            break
+        }
+        darkOverlay.backgroundColor = .black
+        darkOverlay.alpha = 0.5
+        if let keyWindow = UIApplication.shared.keyWindow {
+            darkOverlay.frame = keyWindow.frame
+            keyWindow.addSubview(darkOverlay)
+        }
+    }
+    
+    @objc
+    private func dismissProgressView(withCompletion completionHandler: (() -> Void)?) {
+        darkOverlay.removeFromSuperview()
+        completionHandler?()
+//        SVProgressHUD.dismiss {
+//            self.handleSegueToOcrViewController()
+//        }
+    }
+    
+    fileprivate func handleTextRecognition() {
+        DispatchQueue.main.async {
+            self.showProgressView(withStyle: .status, statusMessage: "Please wait recognition in process..")
+        }
+        if let tesseract = G8Tesseract(language: "eng") {
+            let index = currentPage - 1
+            tesseract.delegate = self
+            tesseract.engineMode = .tesseractOnly
+            tesseract.pageSegmentationMode = .auto
+            let image = UIImage(cgImage: scannedDocs[index].image).g8_blackAndWhite()
+            tesseract.image = image
+            tesseract.recognize()
+            self.recognizedText = tesseract.recognizedText
+        }
+        
+        DispatchQueue.main.async {
+            self.dismissProgressView(withCompletion: {
+                SVProgressHUD.dismiss {
+                    self.handleSegueToOcrViewController()
+                }
+            })
+        }
+    }
+    
+    private func handleSegueToOcrViewController() {
+        let ocrViewController = OCRViewController()
+        let navigationController = UINavigationController(rootViewController: ocrViewController)
+        ocrViewController.textView.text = self.recognizedText
+        self.present(navigationController, animated: true, completion: nil)
+    }
+    
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         let index = Int(targetContentOffset.pointee.x / view.frame.width)
         currentPage = index + 1
+        updateNavigationTitle(index, totalPages: totalPages)
+    }
+    
+    fileprivate func updateNavigationTitle(_ index: Int, totalPages: Int) {
         navigationItem.title = "Page \(index + 1) / \(totalPages)"
     }
     
 }
+
+extension EditScanViewController: G8TesseractDelegate {
+    func progressImageRecognition(for tesseract: G8Tesseract!) {
+        let progress = Float(tesseract.progress)
+        recognitionProgress = progress
+    }
+}
+
 
 extension EditScanViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -194,7 +342,7 @@ extension EditScanViewController: UICollectionViewDataSource {
 
 extension EditScanViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
- 
+        
     }
 }
 
@@ -209,7 +357,6 @@ extension EditScanViewController: UICollectionViewDelegateFlowLayout {
     
 }
 
-
 extension EditScanViewController: EditingToolsDelegate {
     func didTapEditingTool(_ cell: EditingToolsCell) {
         let index = cell.toolButton.tag
@@ -217,7 +364,9 @@ extension EditScanViewController: EditingToolsDelegate {
         case .addPage:
             handlePageAddition()
         case .ocrPage:
-            print("recognize text")
+            DispatchQueue.global(qos: .background).async {
+                self.handleTextRecognition()
+            }
         case .cropPage:
             print("crop page")
         case .deletePage:

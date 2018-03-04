@@ -117,7 +117,7 @@
                         <outlet property="photosImageView" destination="b3a-tz-ELS" id="egh-gF-mCX"/>
                         <outlet property="scannerView" destination="9gB-Wg-QhT" id="KX4-Hp-Gnu"/>
                         <segue destination="rM3-N8-FKH" kind="presentation" identifier="ShowPhotosVC" id="LfN-lZ-Eji"/>
-                        <segue destination="8eb-bK-GdM" kind="show" identifier="ShowEditVC" id="RSm-qF-DvE"/>
+                        <segue destination="8eb-bK-GdM" kind="show" identifier="ShowEditVC" id="XCq-ef-OYl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nv4-EA-ii1" sceneMemberID="firstResponder"/>
@@ -136,11 +136,16 @@
                     </view>
                     <navigationItem key="navigationItem" id="OhU-dI-u7w">
                         <barButtonItem key="backBarButtonItem" title="Cancel" id="R8T-FK-nFK"/>
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="Zl1-pN-RNg">
+                            <connections>
+                                <action selector="saveButtonTapped:" destination="8eb-bK-GdM" id="cHO-va-hCF"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tsb-M3-Ipz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1246" y="132"/>
+            <point key="canvasLocation" x="1249" y="132"/>
         </scene>
         <!--Photos-->
         <scene sceneID="cfQ-v4-kv0">
@@ -191,12 +196,16 @@
                                 <action selector="cancelButtonTapped:" destination="WFI-D7-xhF" id="YFT-Dv-AyF"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Select" id="XBN-A6-ahP">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Select" id="XBN-A6-ahP">
                             <connections>
                                 <action selector="selectButtonTapped:" destination="WFI-D7-xhF" id="kcY-AE-uDH"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="selectButton" destination="XBN-A6-ahP" id="H1Q-Nl-wWO"/>
+                        <segue destination="8eb-bK-GdM" kind="show" identifier="showEditFromPhotosVC" id="jrc-fk-pcL"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k1J-4L-dtX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -250,4 +259,7 @@
         <image name="captureButton" width="78" height="78"/>
         <image name="documents" width="50" height="50"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="jrc-fk-pcL"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -22,12 +22,12 @@ class EditImageCell: UICollectionViewCell {
         let iv = UIImageView()
         iv.backgroundColor = .themeColor()
         iv.contentMode = .scaleAspectFit
-        iv.layer.shouldRasterize = true
-        iv.layer.shadowOpacity = 1
-        iv.layer.shadowColor = UIColor.black.cgColor
-        //iv.layer.shadowOffset = CGSize.init(width: 2, height: 5)
-        iv.layer.shadowOffset = .zero
-        iv.layer.shadowRadius = 4
+//        iv.layer.shouldRasterize = true
+//        iv.layer.shadowOpacity = 1
+//        iv.layer.shadowColor = UIColor.black.cgColor
+//        //iv.layer.shadowOffset = CGSize.init(width: 2, height: 5)
+//        iv.layer.shadowOffset = .zero
+//        iv.layer.shadowRadius = 4
         return iv
     }()
     

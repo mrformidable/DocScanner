@@ -16,20 +16,48 @@ private extension UICollectionView {
     }
 }
 
-class PhotosViewController: UICollectionViewController {
+private let photoCelIdentifier = "PhotosCell"
 
+class PhotosViewController: UICollectionViewController, AlertControllerDelegate {
+    
+    @IBOutlet weak var selectButton: UIBarButtonItem!
+    
     var fetchResult: PHFetchResult<PHAsset>!
+    
     fileprivate var thumbnailSize: CGSize!
+    
     fileprivate let imageManager = PHCachingImageManager()
+    
     fileprivate var previousPreheatRect = CGRect.zero
-
-
+    
+    var scannedDocs = [ScannedDoc]()
+    
+    fileprivate var selectedPhotos = [UIImage]()
+    
+    fileprivate var selectedCount: Int = 0
+    
+    fileprivate var selectedItems = [[IndexPath: Int]]() {
+        didSet {
+            if selectedItems.count > 0 {
+                selectButton.isEnabled = true
+            } else {
+                selectButton.isEnabled = false
+                selectedPhotos.removeAll()
+            }
+        }
+    }
+    
+    var targetSize: CGSize {
+        let scale = UIScreen.main.scale
+        return CGSize(width: view.bounds.width * scale,
+                      height: view.bounds.height * scale)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         resetCachedAssets()
         
-        //collectionView?.allowsMultipleSelection = true
+        collectionView?.allowsMultipleSelection = true
         if fetchResult == nil {
             let allPhotosOptions = PHFetchOptions()
             allPhotosOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
@@ -48,7 +76,6 @@ class PhotosViewController: UICollectionViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        
         updateItemSize()
     }
     
@@ -57,16 +84,33 @@ class PhotosViewController: UICollectionViewController {
         updateCachedAssets()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if let indexPaths = collectionView?.indexPathsForSelectedItems {
+            for indexPath in indexPaths {
+                collectionView?.deselectItem(at: indexPath, animated: true)
+                selectedCount = 0
+            }
+        }
+    }
+    
     @IBAction func cancelButtonTapped(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
+    
     @IBAction func selectButtonTapped(_ sender: Any) {
+        let dateSince1970 = Double(Date().timeIntervalSince1970)
+        let date = Date(timeIntervalSince1970: dateSince1970)
+        for image in selectedPhotos {
+            print(selectedPhotos.count)
+            let scannedDoc = ScannedDoc(image: image.cgImage!, date: date)
+            scannedDocs.append(scannedDoc)
+        }
+        self.performSegue(withIdentifier: "showEditFromPhotosVC", sender: self)
     }
     
     private func updateItemSize() {
-        
         let viewWidth = view.bounds.size.width
-        
         let desiredItemWidth: CGFloat = 60
         let columns: CGFloat = max(floor(viewWidth / desiredItemWidth), 4)
         let padding: CGFloat = 10
@@ -124,7 +168,6 @@ class PhotosViewController: UICollectionViewController {
                                         targetSize: thumbnailSize, contentMode: .aspectFill, options: nil)
         imageManager.stopCachingImages(for: removedAssets,
                                        targetSize: thumbnailSize, contentMode: .aspectFill, options: nil)
-        
         // Store the preheat rect to compare against in the future.
         previousPreheatRect = preheatRect
     }
@@ -154,20 +197,17 @@ class PhotosViewController: UICollectionViewController {
             return ([new], [old])
         }
     }
-
-  
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return fetchResult.count
     }
     
-    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotosCell", for: indexPath) as! PhotosCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: photoCelIdentifier, for: indexPath) as! PhotosCollectionViewCell
         // Request an image for the asset from the PHCachingImageManager.
-        
         let asset = fetchResult.object(at: indexPath.item)
-
+        
         cell.representedAssetIdentifier = asset.localIdentifier
         imageManager.requestImage(for: asset, targetSize: thumbnailSize, contentMode: .aspectFill, options: nil, resultHandler: { image, _ in
             // The cell may have been recycled by the time this handler gets called;
@@ -181,20 +221,76 @@ class PhotosViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let asset = fetchResult.object(at: indexPath.item)
-//        let cell = collectionView.cellForItem(at: indexPath) as! PhotosCollectionViewCell
-//
-//        print(indexPath)
+        guard selectedItems.count < 100 else {
+            showAlertController(forTitle: "Max Selection", message: "You have selected 100 photos")
+            return
+        }
+        requestImage(atIndex: indexPath)
+        selectedItems.append([indexPath: selectedCount + 1])
+        selectedCount += 1
+        
+        print(selectedItems.count, "Select: selected items count")
+        print(selectedPhotos.count, "Select: selected photos count")
+        print(selectedCount, "Select: selected count")
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func requestImage(atIndex indexPath: IndexPath) {
+        let asset = fetchResult.object(at: indexPath.item)
+        let _ = CGSize(width: view.frame.width * 0.8, height: view.frame.height * 0.8)
+        let options = PHImageRequestOptions()
+        options.deliveryMode = .highQualityFormat
+        options.isNetworkAccessAllowed = true
+        PHImageManager.default().requestImage(for: asset,
+                                              targetSize: targetSize,
+                                              contentMode: .aspectFit,
+                                              options: options,
+                                              resultHandler: { image, _ in
+                                                guard let image = image else { return }
+                                                self.selectedPhotos.append(image)
+        })
     }
-    */
-
+    
+    override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        for item in selectedItems {
+            if let count = item[indexPath] {
+                selectedPhotos.remove(at: count - 1)
+            } else {
+                print("cannot get current count of selected item")
+            }
+        }
+        selectedItems.remove(at: selectedCount - 1)
+        selectedCount -= 1
+        
+        print(selectedItems.count, "DeSelect: selected items count")
+        print(selectedPhotos.count, "DeSelect: selected photos count")
+        print(selectedCount, "DeSelect: selected count")
+    }
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showEditFromPhotosVC" {
+            if let editScanViewController = segue.destination as? EditScanViewController {
+                editScanViewController.delegate = self
+                editScanViewController.scannedDocs = self.scannedDocs
+                editScanViewController.documentOrigin = .photos
+            }
+        }
+    }
 }
+
+extension PhotosViewController: EditScanDelegate {
+    func removeAllScannedDocs() {
+        scannedDocs.removeAll()
+        selectedPhotos.removeAll()
+        selectedItems.removeAll()
+    }
+    
+    func deletePage(_ index: Int) {
+        scannedDocs.remove(at: index)
+        selectedPhotos.remove(at: index)
+        selectedItems.remove(at: index)
+    }
+    
+}
+
+

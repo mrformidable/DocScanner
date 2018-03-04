@@ -14,13 +14,13 @@ public class DataManager {
     static fileprivate func getDocumentDirectory () -> URL {
         if let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             return url
-        }else{
+        } else {
             fatalError("Unable to access document directory")
         }
     }
     
     // Save any kind of codable objects
-    static func save <T:Encodable> (_ object:T, with fileName:String) {
+    static func save <T:Encodable> (_ object: T, with fileName: String) {
         let url = getDocumentDirectory().appendingPathComponent(fileName, isDirectory: false)
         
         let encoder = JSONEncoder()
@@ -32,7 +32,7 @@ public class DataManager {
             }
             FileManager.default.createFile(atPath: url.path, contents: data, attributes: nil)
             
-        }catch{
+        } catch {
             fatalError(error.localizedDescription)
         }
         
@@ -40,7 +40,7 @@ public class DataManager {
     
     
     // Load any kind of codable objects
-    static func load <T:Decodable> (_ fileName:String, with type:T.Type) -> T {
+    static func load <T:Decodable> (_ fileName: String, with type: T.Type) -> T {
         let url = getDocumentDirectory().appendingPathComponent(fileName, isDirectory: false)
         if !FileManager.default.fileExists(atPath: url.path) {
             fatalError("File not found at path \(url.path)")
@@ -50,18 +50,18 @@ public class DataManager {
             do {
                 let model = try JSONDecoder().decode(type, from: data)
                 return model
-            }catch{
+            } catch {
                 fatalError(error.localizedDescription)
             }
             
-        }else{
+        } else {
             fatalError("Data unavailable at path \(url.path)")
         }
         
     }
     
     // Load data from a file
-    static func loadData (_ fileName:String) -> Data? {
+    static func loadData (_ fileName: String) -> Data? {
         let url = getDocumentDirectory().appendingPathComponent(fileName, isDirectory: false)
         if !FileManager.default.fileExists(atPath: url.path) {
             fatalError("File not found at path \(url.path)")
@@ -70,13 +70,13 @@ public class DataManager {
         if let data = FileManager.default.contents(atPath: url.path) {
             return data
             
-        }else{
+        } else {
             fatalError("Data unavailable at path \(url.path)")
         }
     }
     
     // Load all files from a directory
-    static func loadAll <T:Decodable> (_ type:T.Type) -> [T] {
+    static func loadAll <T: Decodable> (_ type: T.Type) -> [T] {
         do {
             let files = try FileManager.default.contentsOfDirectory(atPath: getDocumentDirectory().path)
             
@@ -88,20 +88,20 @@ public class DataManager {
             
             return modelObjects
             
-        }catch{
+        } catch {
             fatalError("could not load any files")
         }
     }
     
     
     // Delete a file
-    static func delete (_ fileName:String) {
+    static func delete (_ fileName: String) {
         let url = getDocumentDirectory().appendingPathComponent(fileName, isDirectory: false)
         
         if FileManager.default.fileExists(atPath: url.path) {
             do {
                 try FileManager.default.removeItem(at: url)
-            }catch{
+            } catch {
                 fatalError(error.localizedDescription)
             }
         }
