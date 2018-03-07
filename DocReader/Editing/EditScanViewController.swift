@@ -126,23 +126,6 @@ class EditScanViewController: UIViewController {
         setupNavigationBar()
         setupEditingTools()
         print("selected photos count is", selectedImages.count)
-        perform(#selector(createPDFS), with: nil, afterDelay: 5)
-    }
-    @objc
-    func createPDFS() {
-        pdfGenerator = PDFGenerator(pages: self.selectedImages)
-        pdfGenerator?.generatePDF(withCompletion: { (success) in
-            if success {
-                print("sucessfully generated pdf files")
-                
-                
-//                DispatchQueue.main.async {
-//                    let activityController = UIActivityViewController(activityItems: [ "Hello dawg"], applicationActivities: nil)
-//                    self.present(activityController, animated: true, completion: nil)
-//                }
-            }
-            
-        })
     }
     
     deinit {
@@ -177,38 +160,24 @@ class EditScanViewController: UIViewController {
     @IBAction func saveButtonTapped(_ sender: Any) {
         let alertController = UIAlertController(title: "Select Option", message: nil, preferredStyle: .alert)
         
-        let pdfAction = UIAlertAction(title: "Save as PDF", style: .default) { (action) in
-            //pdfGenerator?.getPDFdata()
-//            var images = [UIImage]()
-//            for doc in self.scannedDocs {
-//                let image = UIImage(cgImage: doc.image, scale: 0.9, orientation: UIImageOrientation.downMirrored)
-//                images.append(image)
-//            }
-//            let A4paperSize = CGSize(width: 595, height: 842)
-//            let pdf = SimplePDF(pageSize: A4paperSize)
-//            for image in images {
-//                pdf.addImage(image)
-//            }
-//            let activityController = UIActivityViewController(activityItems: [ "Hello dawg"], applicationActivities: nil)
-//            self.present(activityController, animated: true, completion: nil)
-//            let pdfGenerator = PDFGenerator(pages: self.selectedImages)
-//            pdfGenerator.generatePDF(withCompletion: { (success) in
-//                if success {
-//                    print("sucessfully generated pdf files")
-//                        self.pdfData = Data()
-//                        self.pdfData = pdfGenerator.getPDFdata()
-//                        print(self.pdfData, " data to show")
-//
-            self.pdfGenerator?.savePDFFile()
-           // self.pdfGenerator?.getSavedFile()
-            self.perform(#selector(self.printSaved), with: nil, afterDelay: 5)
-
-            let activityController = UIActivityViewController(activityItems: [  "no data"], applicationActivities: nil)
+        let pdfAction = UIAlertAction(title: "Save as PDF", style: .default) { [unowned self] (action) in
+            
+            self.pdfGenerator = PDFGenerator(pages: self.selectedImages)
+            self.pdfGenerator?.generatePDF(withCompletion: {  [unowned self] (success) in
+                if success {
+                    print("sucessfully generated pdf files")
+                    
+                    DispatchQueue.main.async {
+                        let activityController = UIActivityViewController(activityItems: [ ], applicationActivities: nil)
+                        self.present(activityController, animated: true, completion: nil)
+                    }
+                }
+                
+            })
+            let data = self.pdfGenerator?.getPDFdata()
+            let activityController = UIActivityViewController(activityItems: [ data], applicationActivities: nil)
             self.present(activityController, animated: true, completion: nil)
-        
-//
-//            })
-            //print(pdfGenerator.getPDFdata() ?? "no data to show")
+            
         }
         
         let photoAction = UIAlertAction(title: "Save to Photo Library", style: .default) { [unowned self] (_) in
@@ -239,26 +208,20 @@ class EditScanViewController: UIViewController {
         // Add it to the photo library.
         PHPhotoLibrary.shared().performChanges({
             let _ = PHAssetChangeRequest.creationRequestForAsset(from: image)
-        }, completionHandler: { [weak self] success, error in
+        }, completionHandler: { success, error in
             if !success {
                 print("error saving asset: \(String(describing: error))")
                 DispatchQueue.main.async {
                     SVProgressHUD.show(#imageLiteral(resourceName: "error"), status: "Error Saving Try Again")
                 }
             } else {
-//                self?.dismissProgressView(withCompletion: {
-//                    SVProgressHUD.dismiss()
-//                })
+    
                 DispatchQueue.main.async {
                     SVProgressHUD.show(#imageLiteral(resourceName: "sucess"), status: "Sucessfully Saved")
                 }
                 print("successfully saved as image to library")
             }
         })
-    }
-    
-    @objc func printSaved() {
-        pdfGenerator?.getSavedFile()
     }
     
     // MARK:- Setup Views
@@ -287,7 +250,7 @@ class EditScanViewController: UIViewController {
     }
     
     // MARK:- EditingTools Delegates
-   fileprivate func handlePageAddition() {
+    fileprivate func handlePageAddition() {
         switch documentOrigin! {
         case .camera:
             if scannedDocs.count > 1 {
@@ -306,7 +269,7 @@ class EditScanViewController: UIViewController {
         }
     }
     
-   fileprivate func handlePageDeletion() {
+    fileprivate func handlePageDeletion() {
         let index = currentPage - 1
         scannedDocs.remove(at: index)
         delegate?.deletePage(index)
@@ -471,7 +434,7 @@ extension EditScanViewController: EditingToolsDelegate {
 
 extension EditScanViewController: AlertControllerDelegate { }
 
-// If I want to enable the slide 
+// If you want to enable the slide
 //extension UINavigationController {
 //    open override func viewDidLoad() {
 //        super.viewDidLoad()

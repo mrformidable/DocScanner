@@ -34,21 +34,6 @@ class PhotosViewController: UICollectionViewController, AlertControllerDelegate 
     var scannedDocs = [ScannedDoc]()
     
     var selectedPhotos: [UIImage]?
-    //
-    //    fileprivate var selectedCount: Int = 0
-    //
-    //    fileprivate var allowSelection = true
-    
-    fileprivate var selectedItems = [[IndexPath: Int]]() {
-        didSet {
-            if selectedItems.count > 0 {
-                selectButton.isEnabled = true
-            } else {
-                selectButton.isEnabled = false
-                //selectedPhotos.removeAll()
-            }
-        }
-    }
     
     var targetSize: CGSize {
         let scale = UIScreen.main.scale
@@ -255,10 +240,6 @@ class PhotosViewController: UICollectionViewController, AlertControllerDelegate 
         photoSelectorHandler?.selectPhoto(collectionView: collectionView, atIndexPath: indexPath, asset: asset, targetSize: targetSize)
         updateNavTitle()
         
-        //        let cell = collectionView.cellForItem(at: indexPath) as! PhotosCollectionViewCell
-        //        guard let count = photoSelectorHandler?.selectedCount else { return }
-        //        cell.pageNumberButton.setTitle("\(String(describing: count))", for: .normal)
-        
     }
     
     func updateNavTitle() {
@@ -270,9 +251,6 @@ class PhotosViewController: UICollectionViewController, AlertControllerDelegate 
     override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         photoSelectorHandler?.deselectPhoto(atIndexPath: indexPath)
         updateNavTitle()
-        //        let cell = collectionView.cellForItem(at: indexPath) as! PhotosCollectionViewCell
-        //        guard let count = photoSelectorHandler?.selectedCount else { return }
-        //        cell.pageNumberButton.setTitle("\(String(describing: count))", for: .normal)
     }
     
     // MARK: - Navigation
@@ -334,10 +312,6 @@ extension PhotosViewController: EditScanDelegate {
     }
     
     func deletePage(_ index: Int) {
-        //        print("page that got deleted is index", index)
-        //        let indexPath = IndexPath(item: index, section: 0)
-        //photoSelectorHandler?.deselectPhoto(atIndexPath: indexPath)
-        //collectionView?.deselectItem(at: indexPath, animated: true)
         photoSelectorHandler?.selectedPhotos.remove(at: index)
         photoSelectorHandler?.selectedItems.remove(at: index)
         scannedDocs.remove(at: index)

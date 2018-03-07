@@ -9,19 +9,6 @@
 import Foundation
 import PDFKit
 
-//enum PaperType: Int {
-//    case A4, A3, A2, A1, legal, businessCard
-//    static func returnPaperSize () -> PaperType {
-//        var paperType: PaperType
-//        switch paperType {
-//        case .A1:
-//            return paperType = .A1
-//        default:
-//            <#code#>
-//        }
-//    }
-//}
-
 class PDFGenerator: NSObject {
     
     private var pages: [UIImage]
@@ -34,7 +21,6 @@ class PDFGenerator: NSObject {
     
     init(pages: [UIImage]) {
         self.pages = pages
-        
     }
     
     func generatePDF(withCompletion completion: @escaping (Bool) -> Void) {
@@ -55,36 +41,12 @@ class PDFGenerator: NSObject {
         }
     }
     
-    func savePDFFile() {
-        //let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-        DispatchQueue.global(qos: .background).async {
-            let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-            let url = documentDirectory.appendingPathComponent("mypdf.pdf", isDirectory: true)
-            self.pdfDocument.write(to: url)
-        }
-        
-        
-//        let filePath = "\(documentsPath)/name.pdf"
-//        pdfDocument.write(toFile: filePath)
-        //pdfDocument.write(toFile: "MyPDF.pdf")
-    }
-    
-    func getSavedFile() {
-        let docURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        
-       // let docDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        
-        let contents = try? FileManager.default.contentsOfDirectory(at: docURL, includingPropertiesForKeys: nil, options: .skipsHiddenFiles)
-        
-        print(contents ?? "nothing saved")
-
-    }
-    
-    
     func getPDFdata() -> Data? {
         var data: Data?
         autoreleasepool {
-            data = pdfDocument.dataRepresentation()
+            DispatchQueue.global(qos: .background).async { [weak self] in
+                data = self?.pdfDocument.dataRepresentation()
+            }
         }
         return data
     }

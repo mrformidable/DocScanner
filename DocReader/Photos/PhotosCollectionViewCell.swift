@@ -33,7 +33,7 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     
     override var isSelected: Bool {
         didSet {
-            thumbnailImageView.layer.borderColor = UIColor.green.cgColor
+            thumbnailImageView.layer.borderColor = UIColor.themeIndigo().cgColor
             thumbnailImageView.layer.borderWidth = isSelected ? 5 : 0
             //pageNumberButton.isHidden = isSelected ? false : true
         }
