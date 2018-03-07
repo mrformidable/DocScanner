@@ -166,18 +166,11 @@ class EditScanViewController: UIViewController {
             self.pdfGenerator?.generatePDF(withCompletion: {  [unowned self] (success) in
                 if success {
                     print("sucessfully generated pdf files")
-                    
-                    DispatchQueue.main.async {
-                        let activityController = UIActivityViewController(activityItems: [ ], applicationActivities: nil)
-                        self.present(activityController, animated: true, completion: nil)
-                    }
+                    let data = self.pdfGenerator?.getPDFdata()
+                    let activityController = UIActivityViewController(activityItems: [ data ?? ""], applicationActivities: nil)
+                    self.present(activityController, animated: true, completion: nil)
                 }
-                
             })
-            let data = self.pdfGenerator?.getPDFdata()
-            let activityController = UIActivityViewController(activityItems: [ data], applicationActivities: nil)
-            self.present(activityController, animated: true, completion: nil)
-            
         }
         
         let photoAction = UIAlertAction(title: "Save to Photo Library", style: .default) { [unowned self] (_) in

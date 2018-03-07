@@ -71,15 +71,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		440700DD2037E9040027E231 /* DocReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DocReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		440700DD2037E9040027E231 /* DocScanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DocScanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		440700E02037E9040027E231 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		440700E52037E9040027E231 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		440700E72037E9040027E231 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		440700EA2037E9040027E231 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		440700EC2037E9040027E231 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		440700F12037E9040027E231 /* DocReaderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DocReaderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		440700F12037E9040027E231 /* DocScannerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DocScannerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		440700F72037E9040027E231 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		440700FC2037E9040027E231 /* DocReaderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DocReaderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		440700FC2037E9040027E231 /* DocScannerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DocScannerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		440701002037E9040027E231 /* DocReaderUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocReaderUITests.swift; sourceTree = "<group>"; };
 		440701022037E9040027E231 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		440701112037E9A10027E231 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
@@ -183,9 +183,9 @@
 		440700DE2037E9040027E231 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				440700DD2037E9040027E231 /* DocReader.app */,
-				440700F12037E9040027E231 /* DocReaderTests.xctest */,
-				440700FC2037E9040027E231 /* DocReaderUITests.xctest */,
+				440700DD2037E9040027E231 /* DocScanner.app */,
+				440700F12037E9040027E231 /* DocScannerTests.xctest */,
+				440700FC2037E9040027E231 /* DocScannerUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -370,9 +370,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		440700DC2037E9040027E231 /* DocReader */ = {
+		440700DC2037E9040027E231 /* DocScanner */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 440701052037E9040027E231 /* Build configuration list for PBXNativeTarget "DocReader" */;
+			buildConfigurationList = 440701052037E9040027E231 /* Build configuration list for PBXNativeTarget "DocScanner" */;
 			buildPhases = (
 				4DEA128B9477CC097B57FA0D /* [CP] Check Pods Manifest.lock */,
 				440700D92037E9040027E231 /* Sources */,
@@ -385,14 +385,14 @@
 			);
 			dependencies = (
 			);
-			name = DocReader;
+			name = DocScanner;
 			productName = DocReader;
-			productReference = 440700DD2037E9040027E231 /* DocReader.app */;
+			productReference = 440700DD2037E9040027E231 /* DocScanner.app */;
 			productType = "com.apple.product-type.application";
 		};
-		440700F02037E9040027E231 /* DocReaderTests */ = {
+		440700F02037E9040027E231 /* DocScannerTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 440701082037E9040027E231 /* Build configuration list for PBXNativeTarget "DocReaderTests" */;
+			buildConfigurationList = 440701082037E9040027E231 /* Build configuration list for PBXNativeTarget "DocScannerTests" */;
 			buildPhases = (
 				440700ED2037E9040027E231 /* Sources */,
 				440700EE2037E9040027E231 /* Frameworks */,
@@ -403,14 +403,14 @@
 			dependencies = (
 				440700F32037E9040027E231 /* PBXTargetDependency */,
 			);
-			name = DocReaderTests;
+			name = DocScannerTests;
 			productName = DocReaderTests;
-			productReference = 440700F12037E9040027E231 /* DocReaderTests.xctest */;
+			productReference = 440700F12037E9040027E231 /* DocScannerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		440700FB2037E9040027E231 /* DocReaderUITests */ = {
+		440700FB2037E9040027E231 /* DocScannerUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4407010B2037E9040027E231 /* Build configuration list for PBXNativeTarget "DocReaderUITests" */;
+			buildConfigurationList = 4407010B2037E9040027E231 /* Build configuration list for PBXNativeTarget "DocScannerUITests" */;
 			buildPhases = (
 				440700F82037E9040027E231 /* Sources */,
 				440700F92037E9040027E231 /* Frameworks */,
@@ -421,9 +421,9 @@
 			dependencies = (
 				440700FE2037E9040027E231 /* PBXTargetDependency */,
 			);
-			name = DocReaderUITests;
+			name = DocScannerUITests;
 			productName = DocReaderUITests;
-			productReference = 440700FC2037E9040027E231 /* DocReaderUITests.xctest */;
+			productReference = 440700FC2037E9040027E231 /* DocScannerUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -457,7 +457,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 440700D82037E9040027E231 /* Build configuration list for PBXProject "DocReader" */;
+			buildConfigurationList = 440700D82037E9040027E231 /* Build configuration list for PBXProject "DocScanner" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -470,9 +470,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				440700DC2037E9040027E231 /* DocReader */,
-				440700F02037E9040027E231 /* DocReaderTests */,
-				440700FB2037E9040027E231 /* DocReaderUITests */,
+				440700DC2037E9040027E231 /* DocScanner */,
+				440700F02037E9040027E231 /* DocScannerTests */,
+				440700FB2037E9040027E231 /* DocScannerUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -625,12 +625,12 @@
 /* Begin PBXTargetDependency section */
 		440700F32037E9040027E231 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 440700DC2037E9040027E231 /* DocReader */;
+			target = 440700DC2037E9040027E231 /* DocScanner */;
 			targetProxy = 440700F22037E9040027E231 /* PBXContainerItemProxy */;
 		};
 		440700FE2037E9040027E231 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 440700DC2037E9040027E231 /* DocReader */;
+			target = 440700DC2037E9040027E231 /* DocScanner */;
 			targetProxy = 440700FD2037E9040027E231 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -813,7 +813,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DocReader.app/DocReader";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DocScanner.temp_caseinsensitive_rename.app/DocScanner.temp_caseinsensitive_rename";
 			};
 			name = Debug;
 		};
@@ -830,7 +830,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DocReader.app/DocReader";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DocScanner.temp_caseinsensitive_rename.app/DocScanner.temp_caseinsensitive_rename";
 			};
 			name = Release;
 		};
@@ -869,7 +869,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		440700D82037E9040027E231 /* Build configuration list for PBXProject "DocReader" */ = {
+		440700D82037E9040027E231 /* Build configuration list for PBXProject "DocScanner" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				440701032037E9040027E231 /* Debug */,
@@ -878,7 +878,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		440701052037E9040027E231 /* Build configuration list for PBXNativeTarget "DocReader" */ = {
+		440701052037E9040027E231 /* Build configuration list for PBXNativeTarget "DocScanner" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				440701062037E9040027E231 /* Debug */,
@@ -887,7 +887,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		440701082037E9040027E231 /* Build configuration list for PBXNativeTarget "DocReaderTests" */ = {
+		440701082037E9040027E231 /* Build configuration list for PBXNativeTarget "DocScannerTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				440701092037E9040027E231 /* Debug */,
@@ -896,7 +896,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4407010B2037E9040027E231 /* Build configuration list for PBXNativeTarget "DocReaderUITests" */ = {
+		4407010B2037E9040027E231 /* Build configuration list for PBXNativeTarget "DocScannerUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4407010C2037E9040027E231 /* Debug */,
