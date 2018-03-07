@@ -16,12 +16,10 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     
     lazy var pageNumberButton: UIButton = {
         let button = UIButton(type: UIButtonType.system)
-        button.setTitle("1", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel!.textAlignment = .right
         button.backgroundColor = UIColor.themeIndigo()
         button.isHidden = true
-        //button.addTarget(self, action: #selector(didTapPageNumberButton), for: .normal)
         return button
     }()
     
@@ -37,7 +35,7 @@ class PhotosCollectionViewCell: UICollectionViewCell {
         didSet {
             thumbnailImageView.layer.borderColor = UIColor.green.cgColor
             thumbnailImageView.layer.borderWidth = isSelected ? 5 : 0
-            pageNumberButton.isHidden = isSelected ? false : true
+            //pageNumberButton.isHidden = isSelected ? false : true
         }
     }
     

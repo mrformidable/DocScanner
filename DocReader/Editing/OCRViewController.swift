@@ -52,7 +52,12 @@ class OCRViewController: UIViewController, AlertControllerDelegate {
     
     @objc
     private func didTapActionButton() {
-        print("action button tapped")
+        guard let text = textView.text, !text.isEmpty else {
+            print("text is empty")
+            return
+        }
+        let activityController = UIActivityViewController(activityItems: [text], applicationActivities: nil)
+        self.present(activityController, animated: true, completion: nil)
     }
     
     @objc

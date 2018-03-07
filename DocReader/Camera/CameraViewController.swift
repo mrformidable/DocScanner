@@ -21,6 +21,7 @@ class CameraViewController: UIViewController {
     @IBOutlet weak var scannerView: ScannerView!
     
     @IBOutlet weak var autoDetectButton: UIBarButtonItem!
+   
     @IBOutlet weak var multiPagesButton: UIButton!
     
     @IBOutlet weak var photosImageView: UIImageView!
@@ -171,7 +172,6 @@ class CameraViewController: UIViewController {
     @objc
     private func didTapPhotosButton() {
         performSegue(withIdentifier: SegueIdentifiers.photosController.rawValue, sender: self)
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -362,6 +362,8 @@ class CameraViewController: UIViewController {
 }
 
 extension CameraViewController: EditScanDelegate {
+    func addingPages() { }
+    
     func deletePage(_ index: Int) {
         scannedDocs.remove(at: index)
     }

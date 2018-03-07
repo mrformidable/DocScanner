@@ -10,6 +10,7 @@ import Foundation
 
 
 struct Folder: Codable {
+    
     var name: String
     var date: Date
     var isPasswordProtected: Bool

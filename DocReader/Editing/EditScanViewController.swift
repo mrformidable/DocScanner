@@ -11,6 +11,8 @@ import Foundation
 import TesseractOCR
 import SVProgressHUD
 import Photos
+import PDFKit
+
 private let editImageCellId = "EditImageCell"
 private let editingToolsCellId = "EditingToolsCell"
 
@@ -44,6 +46,7 @@ struct EditTool {
 protocol EditScanDelegate: class {
     func removeAllScannedDocs()
     func deletePage(_ index: Int)
+    func addingPages()
 }
 
 class EditScanViewController: UIViewController {
@@ -81,6 +84,8 @@ class EditScanViewController: UIViewController {
     
     private var toolButtons = [EditTool]()
     
+    var selectedImages = [UIImage]()
+    
     var scannedDocs = [ScannedDoc]()
     
     private var currentPage: Int = 1
@@ -111,33 +116,53 @@ class EditScanViewController: UIViewController {
     
     var documentOrigin: DocumentOrigin?
     
+    var pdfData: Data?
+    
+    var pdfGenerator: PDFGenerator?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
         setupNavigationBar()
         setupEditingTools()
-        print("Number of docs for processing are:", scannedDocs.count)
-        print(documentOrigin ?? "no document origin")
+        print("selected photos count is", selectedImages.count)
+        perform(#selector(createPDFS), with: nil, afterDelay: 5)
+    }
+    @objc
+    func createPDFS() {
+        pdfGenerator = PDFGenerator(pages: self.selectedImages)
+        pdfGenerator?.generatePDF(withCompletion: { (success) in
+            if success {
+                print("sucessfully generated pdf files")
+                
+                
+//                DispatchQueue.main.async {
+//                    let activityController = UIActivityViewController(activityItems: [ "Hello dawg"], applicationActivities: nil)
+//                    self.present(activityController, animated: true, completion: nil)
+//                }
+            }
+            
+        })
+    }
+    
+    deinit {
+        print("Edit scan vc is deiniting")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
     }
     
-    private func setupNavigationBar() {
-        let titleAttributes = [NSAttributedStringKey.font: UIFont.monospacedDigitSystemFont(ofSize: 16, weight: .semibold), NSAttributedStringKey.foregroundColor: UIColor.white]
-        navigationController?.navigationBar.titleTextAttributes = titleAttributes
-        let leftBarButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(didTapCancelButton))
-        navigationItem.leftBarButtonItem = leftBarButton
-        navigationItem.title = "Page 1 / \(scannedDocs.count)"
-        totalPages = scannedDocs.count
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.pdfData?.removeAll()
+        self.pdfData = nil
     }
     
     @objc
     private func didTapCancelButton() {
         let alertController = UIAlertController(title: "Leave Scanning", message: "This will delete all scanned pages. Are you sure?", preferredStyle: .alert)
-        let okayAction = UIAlertAction(title: "Yes", style: .default) { (_) in
+        let okayAction = UIAlertAction(title: "Yes", style: .default) { [unowned self] (_) in
             self.scannedDocs.removeAll()
             self.delegate?.removeAllScannedDocs()
             self.navigationController?.popViewController(animated: true)
@@ -150,23 +175,63 @@ class EditScanViewController: UIViewController {
     }
     
     @IBAction func saveButtonTapped(_ sender: Any) {
-        let alertController = UIAlertController(title: "Select an option", message: nil, preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Select Option", message: nil, preferredStyle: .alert)
+        
         let pdfAction = UIAlertAction(title: "Save as PDF", style: .default) { (action) in
-            
+            //pdfGenerator?.getPDFdata()
+//            var images = [UIImage]()
+//            for doc in self.scannedDocs {
+//                let image = UIImage(cgImage: doc.image, scale: 0.9, orientation: UIImageOrientation.downMirrored)
+//                images.append(image)
+//            }
+//            let A4paperSize = CGSize(width: 595, height: 842)
+//            let pdf = SimplePDF(pageSize: A4paperSize)
+//            for image in images {
+//                pdf.addImage(image)
+//            }
+//            let activityController = UIActivityViewController(activityItems: [ "Hello dawg"], applicationActivities: nil)
+//            self.present(activityController, animated: true, completion: nil)
+//            let pdfGenerator = PDFGenerator(pages: self.selectedImages)
+//            pdfGenerator.generatePDF(withCompletion: { (success) in
+//                if success {
+//                    print("sucessfully generated pdf files")
+//                        self.pdfData = Data()
+//                        self.pdfData = pdfGenerator.getPDFdata()
+//                        print(self.pdfData, " data to show")
+//
+            self.pdfGenerator?.savePDFFile()
+           // self.pdfGenerator?.getSavedFile()
+            self.perform(#selector(self.printSaved), with: nil, afterDelay: 5)
+
+            let activityController = UIActivityViewController(activityItems: [  "no data"], applicationActivities: nil)
+            self.present(activityController, animated: true, completion: nil)
+        
+//
+//            })
+            //print(pdfGenerator.getPDFdata() ?? "no data to show")
         }
-        let photoAction = UIAlertAction(title: "Save to Photo Library", style: .default) { (_) in
+        
+        let photoAction = UIAlertAction(title: "Save to Photo Library", style: .default) { [unowned self] (_) in
             if self.scannedDocs.count > 0 {
-                
-                for scan in self.scannedDocs {
-                    let image = UIImage(cgImage: scan.image)
+                self.scannedDocs.forEach({
+                    let image = UIImage(cgImage: $0.image)
                     self.savePhotoToLibrary(image)
-                }
+                })
             }
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .default)
-        alertController.addAction(cancelAction)
-        alertController.addAction(pdfAction)
+        
+        switch documentOrigin! {
+        case .camera:
+            alertController.addAction(pdfAction)
+            alertController.addAction(photoAction)
+            alertController.addAction(cancelAction)
+        case .photos:
+            alertController.addAction(pdfAction)
+            alertController.addAction(cancelAction)
+        }
+        
         present(alertController, animated: true, completion: nil)
     }
     
@@ -174,16 +239,43 @@ class EditScanViewController: UIViewController {
         // Add it to the photo library.
         PHPhotoLibrary.shared().performChanges({
             let _ = PHAssetChangeRequest.creationRequestForAsset(from: image)
-        }, completionHandler: {success, error in
-            if !success { print("error creating asset: \(String(describing: error))") }
+        }, completionHandler: { [weak self] success, error in
+            if !success {
+                print("error saving asset: \(String(describing: error))")
+                DispatchQueue.main.async {
+                    SVProgressHUD.show(#imageLiteral(resourceName: "error"), status: "Error Saving Try Again")
+                }
+            } else {
+//                self?.dismissProgressView(withCompletion: {
+//                    SVProgressHUD.dismiss()
+//                })
+                DispatchQueue.main.async {
+                    SVProgressHUD.show(#imageLiteral(resourceName: "sucess"), status: "Sucessfully Saved")
+                }
+                print("successfully saved as image to library")
+            }
         })
     }
     
+    @objc func printSaved() {
+        pdfGenerator?.getSavedFile()
+    }
+    
+    // MARK:- Setup Views
     private func setupCollectionView() {
         view.addSubview(photosCollectionView)
         view.addSubview(editingToolsCollectionView)
         photosCollectionView.anchorConstraints(topAnchor: view.topAnchor, topConstant: 0, leftAnchor: view.leftAnchor, leftConstant: 0, rightAnchor: view.rightAnchor, rightConstant: 0, bottomAnchor: editingToolsCollectionView.topAnchor, bottomConstant: 0, heightConstant: 0, widthConstant: 0)
         editingToolsCollectionView.anchorConstraints(topAnchor: nil, topConstant: 0, leftAnchor: view.leftAnchor, leftConstant: 0, rightAnchor: view.rightAnchor, rightConstant: 0, bottomAnchor: view.safeAreaLayoutGuide.bottomAnchor, bottomConstant: 0, heightConstant: 100, widthConstant: 0)
+    }
+    
+    private func setupNavigationBar() {
+        let titleAttributes = [NSAttributedStringKey.font: UIFont.monospacedDigitSystemFont(ofSize: 16, weight: .semibold), NSAttributedStringKey.foregroundColor: UIColor.white]
+        navigationController?.navigationBar.titleTextAttributes = titleAttributes
+        let leftBarButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(didTapCancelButton))
+        navigationItem.leftBarButtonItem = leftBarButton
+        navigationItem.title = "Page 1 / \(scannedDocs.count)"
+        totalPages = scannedDocs.count
     }
     
     private func setupEditingTools() {
@@ -194,6 +286,7 @@ class EditScanViewController: UIViewController {
         self.toolButtons = [addPageTool, ocrTool, cropTool, deletePageTool]
     }
     
+    // MARK:- EditingTools Delegates
    fileprivate func handlePageAddition() {
         switch documentOrigin! {
         case .camera:
@@ -204,10 +297,11 @@ class EditScanViewController: UIViewController {
             navigationController?.popViewController(animated: true)
             
         case .photos:
-            guard scannedDocs.count < 100 else {
-                showAlertController(forTitle: "Max Selection", message: "You have selected more than 100 photos")
+            guard scannedDocs.count < 20 else {
+                showAlertController(forTitle: "Max Selection", message: "You have selected a maximum of 20 photos")
                 return
             }
+            delegate?.addingPages()
             navigationController?.popViewController(animated: true)
         }
     }
@@ -220,7 +314,7 @@ class EditScanViewController: UIViewController {
         photosCollectionView.reloadData()
         updateNavigationTitle(index, totalPages: totalPages)
         if index == totalPages {
-            // we know this is the last page
+            //we know this is the last page
             currentPage -= 1
             updateNavigationTitle(index - 1, totalPages: totalPages)
         }
@@ -230,32 +324,6 @@ class EditScanViewController: UIViewController {
             self.scannedDocs.removeAll()
             self.delegate?.removeAllScannedDocs()
         }
-    }
-    //"Please wait recognition in process.."
-    private func showProgressView(withStyle style: ProgressViewStyle, statusMessage: String?) {
-        switch style {
-        case .status:
-            SVProgressHUD.show(withStatus: statusMessage)
-        case .none:
-            SVProgressHUD.show()
-        case .progress:
-            break
-        }
-        darkOverlay.backgroundColor = .black
-        darkOverlay.alpha = 0.5
-        if let keyWindow = UIApplication.shared.keyWindow {
-            darkOverlay.frame = keyWindow.frame
-            keyWindow.addSubview(darkOverlay)
-        }
-    }
-    
-    @objc
-    private func dismissProgressView(withCompletion completionHandler: (() -> Void)?) {
-        darkOverlay.removeFromSuperview()
-        completionHandler?()
-//        SVProgressHUD.dismiss {
-//            self.handleSegueToOcrViewController()
-//        }
     }
     
     fileprivate func handleTextRecognition() {
@@ -282,6 +350,31 @@ class EditScanViewController: UIViewController {
         }
     }
     
+    private func showProgressView(withStyle style: ProgressViewStyle, statusMessage: String?) {
+        switch style {
+        case .status:
+            SVProgressHUD.show(withStatus: statusMessage)
+        case .none:
+            SVProgressHUD.show()
+        case .progress:
+            break
+        }
+        darkOverlay.backgroundColor = .black
+        darkOverlay.alpha = 0.5
+        if let keyWindow = UIApplication.shared.keyWindow {
+            darkOverlay.frame = keyWindow.frame
+            keyWindow.addSubview(darkOverlay)
+        }
+    }
+    
+    @objc
+    private func dismissProgressView(withCompletion completionHandler: (() -> Void)?) {
+        DispatchQueue.main.async {
+            self.darkOverlay.removeFromSuperview()
+        }
+        completionHandler?()
+    }
+    // MARK:- Navigation
     private func handleSegueToOcrViewController() {
         let ocrViewController = OCRViewController()
         let navigationController = UINavigationController(rootViewController: ocrViewController)
@@ -308,7 +401,7 @@ extension EditScanViewController: G8TesseractDelegate {
     }
 }
 
-
+//MARK:- CollectionView DataSource
 extension EditScanViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == photosCollectionView {
@@ -339,7 +432,7 @@ extension EditScanViewController: UICollectionViewDataSource {
     }
 }
 
-
+//MARK:- CollectionView Delegate
 extension EditScanViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
@@ -376,7 +469,7 @@ extension EditScanViewController: EditingToolsDelegate {
     
 }
 
-extension EditScanViewController: AlertControllerDelegate {}
+extension EditScanViewController: AlertControllerDelegate { }
 
 // If I want to enable the slide 
 //extension UINavigationController {

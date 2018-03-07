@@ -8,6 +8,7 @@
 
 import UIKit
 import Photos
+import SVProgressHUD
 
 private extension UICollectionView {
     func indexPathsForElements(in rect: CGRect) -> [IndexPath] {
@@ -32,9 +33,11 @@ class PhotosViewController: UICollectionViewController, AlertControllerDelegate 
     
     var scannedDocs = [ScannedDoc]()
     
-    fileprivate var selectedPhotos = [UIImage]()
-    
-    fileprivate var selectedCount: Int = 0
+    var selectedPhotos: [UIImage]?
+    //
+    //    fileprivate var selectedCount: Int = 0
+    //
+    //    fileprivate var allowSelection = true
     
     fileprivate var selectedItems = [[IndexPath: Int]]() {
         didSet {
@@ -42,7 +45,7 @@ class PhotosViewController: UICollectionViewController, AlertControllerDelegate 
                 selectButton.isEnabled = true
             } else {
                 selectButton.isEnabled = false
-                selectedPhotos.removeAll()
+                //selectedPhotos.removeAll()
             }
         }
     }
@@ -53,16 +56,20 @@ class PhotosViewController: UICollectionViewController, AlertControllerDelegate 
                       height: view.bounds.height * scale)
     }
     
+    var photoSelectorHandler: PhotoSelectorHandler?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         resetCachedAssets()
-        
         collectionView?.allowsMultipleSelection = true
         if fetchResult == nil {
             let allPhotosOptions = PHFetchOptions()
             allPhotosOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
             fetchResult = PHAsset.fetchAssets(with: .image, options: allPhotosOptions)
         }
+        self.photoSelectorHandler = PhotoSelectorHandler(maximumPhotoSelection: 20)
+        photoSelectorHandler?.delegate = self
+        navigationItem.title = "Photos"
     }
     
     deinit {
@@ -89,23 +96,46 @@ class PhotosViewController: UICollectionViewController, AlertControllerDelegate 
         if let indexPaths = collectionView?.indexPathsForSelectedItems {
             for indexPath in indexPaths {
                 collectionView?.deselectItem(at: indexPath, animated: true)
-                selectedCount = 0
             }
         }
+        photoSelectorHandler?.selectedCount = 0
+        selectButton.title = "Select"
+        
     }
     
     @IBAction func cancelButtonTapped(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        if let photoSelectorHandler = photoSelectorHandler  {
+            if photoSelectorHandler.selectedItems.count > 0 {
+                let alertController = UIAlertController(title: "Are you sure?", message: "You have already selected some photos for scan.", preferredStyle: .alert)
+                let cancelAction = UIAlertAction(title: "Yes cancel", style: .cancel) { (_) in
+                    self.dismiss(animated: true, completion: nil)
+                }
+                let stopAction = UIAlertAction(title: "Don't cancel", style: .default, handler: nil)
+                alertController.addAction(cancelAction)
+                alertController.addAction(stopAction)
+                present(alertController, animated: true, completion: nil)
+            } else {
+                dismiss(animated: true, completion: nil)
+            }
+        } else {
+            dismiss(animated: true, completion: nil)
+        }
     }
     
     @IBAction func selectButtonTapped(_ sender: Any) {
-        let dateSince1970 = Double(Date().timeIntervalSince1970)
-        let date = Date(timeIntervalSince1970: dateSince1970)
-        for image in selectedPhotos {
-            print(selectedPhotos.count)
-            let scannedDoc = ScannedDoc(image: image.cgImage!, date: date)
-            scannedDocs.append(scannedDoc)
+        if photoSelectorHandler?.selectedItems.count == 0 {
+            showAlertController(forTitle: "No Photo Selected", message: "Please select a photo")
+            return
         }
+        selectedPhotos = [UIImage]()
+        selectedPhotos = photoSelectorHandler?.selectedPhotos
+        SVProgressHUD.show()
+        perform(#selector(dismissProgressView), with: nil, afterDelay: 2)
+    }
+    
+    @objc
+    func dismissProgressView() {
+        SVProgressHUD.dismiss()
         self.performSegue(withIdentifier: "showEditFromPhotosVC", sender: self)
     }
     
@@ -221,49 +251,28 @@ class PhotosViewController: UICollectionViewController, AlertControllerDelegate 
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard selectedItems.count < 100 else {
-            showAlertController(forTitle: "Max Selection", message: "You have selected 100 photos")
-            return
-        }
-        requestImage(atIndex: indexPath)
-        selectedItems.append([indexPath: selectedCount + 1])
-        selectedCount += 1
+        let asset = fetchResult.object(at: indexPath.item)
+        photoSelectorHandler?.selectPhoto(collectionView: collectionView, atIndexPath: indexPath, asset: asset, targetSize: targetSize)
+        updateNavTitle()
         
-        print(selectedItems.count, "Select: selected items count")
-        print(selectedPhotos.count, "Select: selected photos count")
-        print(selectedCount, "Select: selected count")
+        //        let cell = collectionView.cellForItem(at: indexPath) as! PhotosCollectionViewCell
+        //        guard let count = photoSelectorHandler?.selectedCount else { return }
+        //        cell.pageNumberButton.setTitle("\(String(describing: count))", for: .normal)
+        
     }
     
-    func requestImage(atIndex indexPath: IndexPath) {
-        let asset = fetchResult.object(at: indexPath.item)
-        let _ = CGSize(width: view.frame.width * 0.8, height: view.frame.height * 0.8)
-        let options = PHImageRequestOptions()
-        options.deliveryMode = .highQualityFormat
-        options.isNetworkAccessAllowed = true
-        PHImageManager.default().requestImage(for: asset,
-                                              targetSize: targetSize,
-                                              contentMode: .aspectFit,
-                                              options: options,
-                                              resultHandler: { image, _ in
-                                                guard let image = image else { return }
-                                                self.selectedPhotos.append(image)
-        })
+    func updateNavTitle() {
+        if let selectedPhotos = photoSelectorHandler?.selectedItems.count {
+            navigationItem.title = " \(String(describing: selectedPhotos)) Photos Selected"
+        }
     }
     
     override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        for item in selectedItems {
-            if let count = item[indexPath] {
-                selectedPhotos.remove(at: count - 1)
-            } else {
-                print("cannot get current count of selected item")
-            }
-        }
-        selectedItems.remove(at: selectedCount - 1)
-        selectedCount -= 1
-        
-        print(selectedItems.count, "DeSelect: selected items count")
-        print(selectedPhotos.count, "DeSelect: selected photos count")
-        print(selectedCount, "DeSelect: selected count")
+        photoSelectorHandler?.deselectPhoto(atIndexPath: indexPath)
+        updateNavTitle()
+        //        let cell = collectionView.cellForItem(at: indexPath) as! PhotosCollectionViewCell
+        //        guard let count = photoSelectorHandler?.selectedCount else { return }
+        //        cell.pageNumberButton.setTitle("\(String(describing: count))", for: .normal)
     }
     
     // MARK: - Navigation
@@ -273,22 +282,70 @@ class PhotosViewController: UICollectionViewController, AlertControllerDelegate 
                 editScanViewController.delegate = self
                 editScanViewController.scannedDocs = self.scannedDocs
                 editScanViewController.documentOrigin = .photos
+                if let selectedPhotos = self.selectedPhotos {
+                    editScanViewController.selectedImages = selectedPhotos
+                } else {
+                    print("no photos selected")
+                }
             }
         }
     }
 }
 
+
+extension PhotosViewController {
+    fileprivate func addSelectedImageToScannedDocs(_ image: UIImage) {
+        DispatchQueue.global(qos: .background).async {
+            let dateSince1970 = Double(Date().timeIntervalSince1970)
+            let date = Date(timeIntervalSince1970: dateSince1970)
+            let scannedDoc = ScannedDoc(image: image.cgImage!, date: date)
+            self.scannedDocs.append(scannedDoc)
+        }
+    }
+    
+    fileprivate func removeDeselectedImageFromScannedDocs(_ index: Int) {
+        DispatchQueue.global(qos: .background).async {
+            self.scannedDocs.remove(at: index)
+        }
+    }
+}
+
+extension PhotosViewController: PhotoSelectorHandlerDelegate {
+    func removeDeselectedItemFromCollection(atIndex index: Int) {
+        removeDeselectedImageFromScannedDocs(index)
+    }
+    
+    func didReceiveSelectedImage(_ image: UIImage) {
+        addSelectedImageToScannedDocs(image)
+    }
+    
+    func showErrorMessage(message: String) {
+        showAlertController(forTitle: "Invalid Selection", message: message)
+    }
+    
+}
+
 extension PhotosViewController: EditScanDelegate {
     func removeAllScannedDocs() {
+        photoSelectorHandler?.selectedPhotos.removeAll()
+        photoSelectorHandler?.selectedItems.removeAll()
         scannedDocs.removeAll()
-        selectedPhotos.removeAll()
-        selectedItems.removeAll()
+        navigationItem.title = "Photos"
     }
     
     func deletePage(_ index: Int) {
+        //        print("page that got deleted is index", index)
+        //        let indexPath = IndexPath(item: index, section: 0)
+        //photoSelectorHandler?.deselectPhoto(atIndexPath: indexPath)
+        //collectionView?.deselectItem(at: indexPath, animated: true)
+        photoSelectorHandler?.selectedPhotos.remove(at: index)
+        photoSelectorHandler?.selectedItems.remove(at: index)
         scannedDocs.remove(at: index)
-        selectedPhotos.remove(at: index)
-        selectedItems.remove(at: index)
+    }
+    
+    func addingPages() {
+        updateNavTitle()
+        selectButton.title = "Proceed"
     }
     
 }

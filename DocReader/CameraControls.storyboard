@@ -196,7 +196,7 @@
                                 <action selector="cancelButtonTapped:" destination="WFI-D7-xhF" id="YFT-Dv-AyF"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Select" id="XBN-A6-ahP">
+                        <barButtonItem key="rightBarButtonItem" title="Select" id="XBN-A6-ahP">
                             <connections>
                                 <action selector="selectButtonTapped:" destination="WFI-D7-xhF" id="kcY-AE-uDH"/>
                             </connections>
