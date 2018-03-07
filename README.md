@@ -7,3 +7,4 @@ This app requires the following dependencies 'TesseractOCRiOS' and 'SVProgressHU
 <img src="1.png?raw=true" width="340px" hspace="60"> <img src="2.png?raw=true" width="340px">
 <img src="3.png?raw=true" width="340px" hspace="60"/> <img src="4.png?raw=true" width="340px">
 <img src="5.png?raw=true" width="340px" hspace="60"/> <img src="6.png?raw=true" width="340px">
+<img src="7.png?raw=true" width="340px">
